@@ -1,8 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import searchBarText from "../features/searchBarSlice";
-import tutors from "../features/availableTeachersSlice";
+import searchBar from "../features/searchBarSlice";
 import newTutor from "../features/newTutorSlice";
 
 export const store = configureStore({
-  reducer: { searchBarText, tutors, newTutor },
+  reducer: { searchBar, newTutor },
 });

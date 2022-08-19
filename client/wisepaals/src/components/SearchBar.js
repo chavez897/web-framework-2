@@ -4,6 +4,7 @@ import {
   searchCriteriaChanged,
   textSubmitted,
   getCurrentText,
+  fetchTeachers,
 } from "../features/searchBarSlice";
 import SearchBarCSS from "./SearchBar.module.css";
 import { FaSearch } from "react-icons/fa";
@@ -19,6 +20,7 @@ const SearchBar = () => {
 
   const submitSearchCriteria = (value) => {
     dispatch(textSubmitted(value));
+    dispatch(fetchTeachers(value));
     navigate("tutors/" + value);
   };
 
