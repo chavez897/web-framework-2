@@ -1,0 +1,66 @@
+.navBar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    
+}
+
+.appTitle{
+    font-size: 1.5rem;
+    margin: .5rem;
+    /* To compasate the image empty space */
+    margin-left: -1.1rem;
+   
+}
+
+.logo{
+    width: 3.7rem;
+    margin-right: 0.6rem;
+    margin-top: -0.4rem;
+
+
+}
+
+img{
+    width: 100%;
+}
+
+.companyName{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    
+}
+
+.name{
+    color: var(--darkTwo);
+    font-size: 1.55rem;
+    line-height: 1.2;
+
+}
+
+.links{
+    display: flex;
+    list-style: none;
+    
+    
+
+}
+
+.links a{
+    
+    color: var(--lightTwo);
+    margin-left: 4.5rem;
+    display: inline-block;
+    transition: .3s
+}
+
+a{
+    text-decoration: inherit;/* To remove the underline*/
+}
+
+.links a:hover{
+    color: var(--hoverColor);
+    transform: scale(1.05)
+}

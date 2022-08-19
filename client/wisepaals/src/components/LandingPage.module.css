@@ -1,0 +1,38 @@
+.showcaseArea .container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;    
+    justify-content: center;
+}
+
+.title{
+    font-size: 1.4rem;
+    color: var(--darkTwo);
+    text-transform: capitalize;
+    line-height: 1.4;
+}
+
+.text{
+    color: var(--lightOne);
+    font-size: 1.1rem;
+    margin: 1.9rem 0 2.5rem;
+    max-width: 600px;
+    line-height: 2.3;
+}
+
+.landingPicture{
+    width: 123%;
+    transform: translate(15%, 25px);
+}
+
+@media screen and (max-width: 870px){
+    .showcaseArea .container{
+        grid-template-columns: 1fr;
+    }   
+
+    .landingPicture{
+        width: 100%;
+        transform: none;
+    }
+
+}

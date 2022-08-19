@@ -1,0 +1,20 @@
+.bigWrapper{
+    position: relative;
+    padding: 1.7rem 0 2rem;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    background-color: var(--backgroundColor);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.blueShape{
+    position: absolute;
+    z-index: 0;
+    width: 500px;
+    bottom: -180px;
+    left: -15px;
+    opacity: 0.1;
+}

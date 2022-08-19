@@ -1,0 +1,23 @@
+.toggleBtn{
+    display: inline-block;
+    border: none;
+    background-color: var(--darkTwo);
+    color: var(--backgroundColor);
+    outline: none;
+    cursor: pointer;
+    height: 39px;
+    width: 39px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    transition: 0.3s;
+}
+
+.toggleBtn .themeIcon{
+    line-height: 39px;
+}
+
+.toggleBtn:hover{
+    background: var(--mainColor);
+}
+
+

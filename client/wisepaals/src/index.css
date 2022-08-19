@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;600;800;900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* hsl(hue, saturation, lightness)
+Hue is a degree on the color wheel from 0 to 360. 0 is red, 120 is green, and 240 is blue.
+Saturation is a percentage value, 0% means a shade of gray, and 100% is the full color.
+Lightness is also a percentage value, 0% is black, and 100% is white. */
+.light{
+    --mainColor: hsl(203, 87%, 67%);
+    --hoverColor: hsl(203, 67%, 62%);
+    --backgroundColor: #f1f8fc;
+    --darkOne: 	hsl(251, 10%, 21%);
+    --darkTwo: 	hsl(260, 6%, 28%);
+    --lightOne: hsl(0, 0%, 57%);
+    --lightTwo: hsl(0, 0%, 67%);
+    --searchBar:rgba(255, 255, 255, 0.695);
+}
+
+.dark{
+    --mainColor: hsl(203, 87%, 67%);
+    --hoverColor: hsl(203, 67%, 62%);
+    --backgroundColor: #192e3a;
+    --darkOne:  #f3f3f3;
+    --darkTwo: 	#fff;
+    --lightOne: #ccc;
+    --lightTwo: #e7e3e3;
+    /* --searchBar: hsla(203, 100%, 93%, 0.951); */
+    --searchBar:rgba(255, 255, 255, 0.695);
+}
+
+.container {
+    position: relative;
+    max-width: 81rem;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 3rem;
+    z-index: 10;
+    
+  }
+
+
