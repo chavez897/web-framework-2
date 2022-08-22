@@ -19,7 +19,6 @@ const Footer = () => {
       <button
         className={FooterCSS.toggleBtn}
         onClick={() => {
-          console.log("Tururu");
           dark = !dark;
 
           var bigWrapper = document.querySelector(".bigWrapper");

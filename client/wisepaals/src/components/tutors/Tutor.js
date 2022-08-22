@@ -6,14 +6,15 @@ import TutorCSS from "./Tutor.module.css";
 const Tutor = ({ tutor, priceFilter, languagesFilter }) => {
   const submittedText = useSelector(getSubmittedText);
 
-  const containLanguage = tutor.spokenLanguages.find((language) => {
-    if (language.toLowerCase().includes(languagesFilter.toLowerCase())) {
-      return true;
-    }
+  const containLanguage = tutor.spokenLanguages.some((language) => {
+    console.log("tutor language: ", language);
+    var temp = languagesFilter.includes(language.toLowerCase());
+    console.log("includes: ", temp);
+    return temp;
   });
-
+  console.log("containLanguage", containLanguage);
   if (
-    (containLanguage !== undefined || !containLanguage) &&
+    (!languagesFilter.length || containLanguage == true) &&
     submittedText !== undefined &&
     (tutor.lessonCost <= priceFilter || !priceFilter)
   )
@@ -27,14 +28,16 @@ const Tutor = ({ tutor, priceFilter, languagesFilter }) => {
             <h3>{tutor.name}</h3>
           </div>
 
-          <div>{tutor.skills.join(", ")}</div>
+          <div className={TutorCSS.skills}>📚{tutor.skills.join(", ")}</div>
           <br />
-          <div>{tutor.spokenLanguages.join(", ")}</div>
+          <div className={TutorCSS.spokenLanguages}>
+            🗣{tutor.spokenLanguages.join(", ")}
+          </div>
           <br />
-          <div>{tutor.description}</div>
-          <div>hour rate: {tutor.lessonCost}</div>
+          <div className={TutorCSS.description}>{tutor.description}</div>
         </div>
         <div className={TutorCSS.rightSide}>
+          <div className={TutorCSS.price}>USD${tutor.lessonCost}</div>
           <div className={TutorCSS.cardButtons}>
             <button className={TutorCSS.btn}>Book session</button>
             <button className={`${TutorCSS.btn} ${TutorCSS.btnOutline}`}>

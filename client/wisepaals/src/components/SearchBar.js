@@ -8,9 +8,10 @@ import {
 } from "../features/searchBarSlice";
 import SearchBarCSS from "./SearchBar.module.css";
 import { FaSearch } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const SearchBar = () => {
+  const dispatch = useDispatch();
   let navigate = useNavigate();
   const currentText = useSelector(getCurrentText);
 
@@ -18,13 +19,13 @@ const SearchBar = () => {
     dispatch(searchCriteriaChanged(value));
   };
 
+  const { skill } = useParams();
   const submitSearchCriteria = (value) => {
     dispatch(textSubmitted(value));
     dispatch(fetchTeachers(value));
-    navigate("tutors/" + value);
-  };
 
-  const dispatch = useDispatch();
+    if (skill != value) navigate("tutors/" + value);
+  };
 
   return (
     <div className={SearchBarCSS.searchBarContainer}>

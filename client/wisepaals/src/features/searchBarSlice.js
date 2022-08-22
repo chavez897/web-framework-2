@@ -28,9 +28,7 @@ export const searchBarSlice = createSlice({
         state.status = "loading";
       })
       .addCase(fetchTeachers.fulfilled, (state, action) => {
-        state.status = "succeeded";
         state.tutors = action.payload;
-        console.log("It succeeded!!!", state.tutors);
       })
       .addCase(fetchTeachers.rejected, (state, action) => {
         state.status = "failed";
@@ -44,7 +42,6 @@ export const fetchTeachers = createAsyncThunk(
   "tutors/fetchTutors",
   async (skill) => {
     try {
-      console.log("fetch function called");
       const response = await axios.get(FILTER_TUTORS_URL + "?skill=" + skill, {
         headers: { Accept: "application/json" },
       });
@@ -62,7 +59,6 @@ export const getCurrentText = (state) => state.searchBar.currentText;
 export const getSubmittedText = (state) => state.searchBar.submittedText;
 
 export const getAllTutors = (state) => {
-  console.log("Tutors in slice: ", state.searchBar.tutors);
   return state.searchBar.tutors;
 };
 export const getTutorsRequestStatus = (state) => state.tutors.status;

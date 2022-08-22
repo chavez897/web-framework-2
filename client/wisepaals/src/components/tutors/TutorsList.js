@@ -1,36 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-/*
-import {
-  getAllTutors,
-  getTutorsRequestStatus,
-  getTutorsRequestError,
-  fetchTeachers,
-} from "../../features/availableTeachersSlice";
-*/
+import { useSelector, useDispatch } from "react-redux";
 import Tutor from "./Tutor";
 import TutorsListCSS from "./TutorsList.module.css";
 import { useParams } from "react-router-dom";
-import { getSubmittedText, getAllTutors } from "../../features/searchBarSlice";
+import {
+  getSubmittedText,
+  getAllTutors,
+  textSubmitted,
+  fetchTeachers,
+} from "../../features/searchBarSlice";
+
+import FilterBar from "../FilterBar";
 
 const TutorsList = () => {
+  const { skill } = useParams();
+  const dispatch = useDispatch();
+  const submittedText = useSelector(getSubmittedText);
+
+  useEffect(() => {
+    if (skill != submittedText) {
+      dispatch(textSubmitted(skill));
+      dispatch(fetchTeachers(skill));
+    }
+  }, []);
+
   const [priceFilter, setPriceFilter] = useState(10000);
-  const [tutorsState, setTutorsState] = useState();
-  const [spokenLanguagesFilter, setSpokenLanguagesFilter] = useState("English");
-  // const dispatch = useDispatch();
+  const [spokenLanguagesFilter, setSpokenLanguagesFilter] = useState([]);
 
   const tutors = useSelector(getAllTutors);
-  console.log("Tutors es:");
-  console.log(tutors);
-  console.log("Lo de arriba");
-  //setTutorsState(tutors);
-
-  // const tutorsRequestStatus = useSelector(getTutorsRequestStatus);
-  // const tutorsRequestError = useSelector(getTutorsRequestError);
-  const submittedText = useSelector(getSubmittedText);
-  console.log("submittedText", submittedText);
-  let { skill } = useParams();
-  let lastSubmittedText = "";
 
   if (!tutors) return <div>Loading...</div>;
 
@@ -45,20 +42,14 @@ const TutorsList = () => {
       />
     );
   });
+
   return (
     <div className={TutorsListCSS.filterTutorsPageContainer}>
-      <div className={TutorsListCSS.filterBar}>
-        <div>
-          <input
-            placeholder="Price bellow"
-            onChange={(event) => setPriceFilter(event.target.value)}
-          ></input>
-        </div>
-        <input
-          placeholder="Class language"
-          onChange={(event) => setSpokenLanguagesFilter(event.target.value)}
-        ></input>
-      </div>
+      <FilterBar
+        tutorItems={tutorItems}
+        setPriceFilter={setPriceFilter}
+        setSpokenLanguagesFilter={setSpokenLanguagesFilter}
+      />
       <div className={TutorsListCSS.tutorsGrid}>{tutorItems}</div>
     </div>
   );

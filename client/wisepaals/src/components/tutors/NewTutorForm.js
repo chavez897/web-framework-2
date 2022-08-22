@@ -14,7 +14,6 @@ const NewTutorForm = () => {
   const dispatch = useDispatch();
   const onSubmit = (e) => {
     e.picture = picture;
-    console.log(e);
     dispatch(newTutor(e));
   };
   const validate = (e) => {};
