@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { getSubmittedText } from "../../features/searchBarSlice";
-import TutorCSS from "./Tutor.module.css";
+import { getSubmittedText } from "../../searchTutors";
+import TutorCSS from "../assets/Tutor.module.css";
 
 const Tutor = ({ tutor, priceFilter, languagesFilter }) => {
   const submittedText = useSelector(getSubmittedText);

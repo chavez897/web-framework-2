@@ -1,7 +1,7 @@
 import React from "react";
-import LandingPageCSS from "./LandingPage.module.css";
-import landingPicture from "./landingPicture.png";
-import SearchBar from "./SearchBar";
+import LandingPageCSS from "../assets/LandingPage.module.css";
+import landingPicture from "../assets/landingPicture.png";
+import SearchBar from "../features/searchTutors/components/SearchBar";
 
 const LandingPage = () => {
   return (

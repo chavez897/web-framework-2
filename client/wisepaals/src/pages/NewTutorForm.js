@@ -6,15 +6,15 @@ import {
   getNewTutor,
   getNewTutorRequestStatus,
   getNewTutorRequestError,
-  newTutor,
-} from "../../features/newTutorSlice";
+  addTutorService,
+} from "../features/addTutor";
 
 const NewTutorForm = () => {
   const [picture, setPicture] = useState();
   const dispatch = useDispatch();
   const onSubmit = (e) => {
     e.picture = picture;
-    dispatch(newTutor(e));
+    dispatch(addTutorService(e));
   };
   const validate = (e) => {};
   return (

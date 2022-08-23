@@ -1,5 +1,5 @@
 import React from "react";
-import TutorsList from "./tutors/TutorsList";
+import TutorsList from "../features/showTutors/components/TutorsList";
 
 const FilterTutors = () => {
   return (

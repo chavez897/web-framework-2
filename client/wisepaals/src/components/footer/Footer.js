@@ -1,8 +1,8 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
-import FooterCSS from "./Footer.module.css";
-import "./Footer.css";
+import FooterCSS from "../../assets/Footer.module.css";
+import "../../assets/Footer.css";
 
 const Footer = () => {
   var dark = false;

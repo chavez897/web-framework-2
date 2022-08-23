@@ -1,13 +1,13 @@
 import React from "react";
-import FilterTutors from "./components/FilterTutors";
-import NewTutorForm from "./components/tutors/NewTutorForm";
+import FilterTutors from "./pages/FilterTutors";
+import NewTutorForm from "./pages/NewTutorForm";
 import { Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import LandingPage from "./components/LandingPage";
-import AppCSS from "./App.module.css";
-import blueShape from "./components/blueShape.png";
-import "./index.css";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
+import LandingPage from "./pages/LandingPage";
+import AppCSS from "./assets/App.module.css";
+import blueShape from "./assets/blueShape.png";
+import "./assets/index.css";
 
 const App = () => {
   return (

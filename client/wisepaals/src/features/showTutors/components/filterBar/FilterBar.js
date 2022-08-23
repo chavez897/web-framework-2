@@ -1,6 +1,6 @@
 import React from "react";
 import MultiSelect from "./MultiSelect";
-import FilterBarCSS from "./FilterBar.module.css";
+import FilterBarCSS from "../../assets/FilterBar.module.css";
 
 const FilterBar = ({
   tutorItems,

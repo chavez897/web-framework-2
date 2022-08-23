@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice } from "@reduxjs/toolkit";
+import fetchTeachers from "../../../services/fetchTeachersService";
 
 const initialState = {
   currentText: "",
@@ -8,7 +8,6 @@ const initialState = {
   status: "idle", //'idle' | 'loading'  | 'succeeded' | 'failed'
   error: null,
 };
-const FILTER_TUTORS_URL = "http://localhost:5001/api/v1/tutors";
 
 export const searchBarSlice = createSlice({
   name: "searchBar",
@@ -36,22 +35,6 @@ export const searchBarSlice = createSlice({
       });
   },
 });
-
-//First argument: prefix for the generated action type
-export const fetchTeachers = createAsyncThunk(
-  "tutors/fetchTutors",
-  async (skill) => {
-    try {
-      const response = await axios.get(FILTER_TUTORS_URL + "?skill=" + skill, {
-        headers: { Accept: "application/json" },
-      });
-      return response.data;
-    } catch (error) {
-      console.log(error);
-      return error.message;
-    }
-  }
-);
 
 export const { searchCriteriaChanged, textSubmitted } = searchBarSlice.actions;
 

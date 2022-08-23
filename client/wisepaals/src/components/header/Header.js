@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import HeaderCSS from "./Header.module.css";
+import HeaderCSS from "../../assets/Header.module.css";
 
-import SearchBar from "./SearchBar";
-import logoImage from "./logo.png";
+import SearchBar from "../../features/searchTutors/components/SearchBar";
+import logoImage from "../../assets/logo.png";
 import { useLocation } from "react-router-dom";
 
 const Header = () => {

@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Tutor from "./Tutor";
-import TutorsListCSS from "./TutorsList.module.css";
+import TutorsListCSS from "../assets/TutorsList.module.css";
 import { useParams } from "react-router-dom";
 import {
   getSubmittedText,
   getAllTutors,
   textSubmitted,
-  fetchTeachers,
-} from "../../features/searchBarSlice";
-
-import FilterBar from "../FilterBar";
+} from "../../searchTutors";
+import fetchTeachers from "../../../services/fetchTeachersService";
+import FilterBar from "./filterBar/FilterBar";
 
 const TutorsList = () => {
   const { skill } = useParams();
@@ -30,7 +29,6 @@ const TutorsList = () => {
   const tutors = useSelector(getAllTutors);
 
   if (!tutors) return <div>Loading...</div>;
-
   //Map function is to do something to each element of the array
   const tutorItems = tutors.map((tutor) => {
     return (
