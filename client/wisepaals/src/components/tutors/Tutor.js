@@ -6,13 +6,9 @@ import TutorCSS from "./Tutor.module.css";
 const Tutor = ({ tutor, priceFilter, languagesFilter }) => {
   const submittedText = useSelector(getSubmittedText);
 
-  const containLanguage = tutor.spokenLanguages.some((language) => {
-    console.log("tutor language: ", language);
-    var temp = languagesFilter.includes(language.toLowerCase());
-    console.log("includes: ", temp);
-    return temp;
-  });
-  console.log("containLanguage", containLanguage);
+  const containLanguage = tutor.spokenLanguages.some((language) =>
+    languagesFilter.includes(language.toLowerCase())
+  );
   if (
     (!languagesFilter.length || containLanguage == true) &&
     submittedText !== undefined &&

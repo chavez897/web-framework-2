@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Multiselect } from "multiselect-react-dropdown";
+import MultiSelectCSS from "./MultiSelect.module.css";
 
 const MultiSelect = ({ data, displayValue, onSelect, onRemove }) => {
   return (

@@ -31,12 +31,19 @@ const FilterBar = ({
           onChange={(event) => setPriceFilter(event.target.value)}
         ></input>
       </div>
-      <MultiSelect
-        data={[...new Set(languagesOfTutors)]}
-        displayValue="language"
-        onSelect={convertAndsetSpokenLanguagesFilter}
-        onRemove={convertAndsetSpokenLanguagesFilter}
-      />
+      <div className={FilterBarCSS.languageFilterContainer}>
+        <div className={FilterBarCSS.languageFilterText}>
+          <label>Languages</label>
+        </div>
+        <div className={FilterBarCSS.multiselect}>
+          <MultiSelect
+            data={[...new Set(languagesOfTutors)]}
+            displayValue="language"
+            onSelect={convertAndsetSpokenLanguagesFilter}
+            onRemove={convertAndsetSpokenLanguagesFilter}
+          />
+        </div>
+      </div>
     </div>
   );
 };
