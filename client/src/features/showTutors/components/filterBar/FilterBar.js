@@ -11,19 +11,8 @@ const FilterBar = ({
 }) => {
   return (
     <div className={FilterBarCSS.filterBar}>
-      {/* <div>
-        <input
-          placeholder="Price bellow"
-          onChange={(event) => setPriceFilter(event.target.value)}
-        ></input>
-      </div> */}
       <div className={FilterBarCSS.filterItemContainer}>
         <PriceSlider
-          // highestPrice={() => {
-          //   if (tutorItems)
-          //     return Math.max(...tutorItems.map((tutor) => tutor.lessonCost));
-          //   return "100";
-          // }}
           highestPrice={Math.max(
             ...tutorItems.map((tutor) => tutor.lessonCost)
           )}

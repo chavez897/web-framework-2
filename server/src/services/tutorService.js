@@ -1,7 +1,6 @@
 import teacherFilterModel from "../database/models/tutorModel.js";
 
 export const getTutorsService = async (skill) => {
-  console.log("hi there");
   const tutors = await teacherFilterModel
     .find({
       skills: { $regex: skill, $options: "i" },

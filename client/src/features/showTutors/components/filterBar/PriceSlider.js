@@ -44,7 +44,7 @@ const PriceSlider = ({ highestPrice, setPriceFilter }) => {
             type="number"
             className="inputMin"
             value={minPrice}
-            readonly
+            readOnly
             disabled="disabled"
           />
         </div>
@@ -54,12 +54,12 @@ const PriceSlider = ({ highestPrice, setPriceFilter }) => {
             type="number"
             className="inputMax"
             value={maxPrice}
-            readonly
+            readOnly
             disabled="disabled"
           />
         </div>
       </div>
-      <div class={PriceSliderCSS.slider}>
+      <div className={PriceSliderCSS.slider}>
         <div
           className={PriceSliderCSS.progress}
           style={{
@@ -108,25 +108,6 @@ const PriceSlider = ({ highestPrice, setPriceFilter }) => {
       </div>
     </div>
   );
-
-  const changeProgressBar = (e) => {
-    if (e && e.target && e.target.value) {
-      if (maxPrice - minPrice < rangeGap) {
-        if (e.target.className === "rangeMin") {
-          setMinPrice(maxPrice - rangeGap);
-        } else {
-          setMaxPrice(minPrice + rangeGap);
-        }
-      } else {
-        if (e.target.className === "rangeMin")
-          setLeftPercentageProgressBar((e.target.value / 100) * 100 + "%");
-        if (e.target.className === "rangeMax")
-          setRightPercentageProgressBar(
-            100 - (e.target.value / 100) * 100 + "%"
-          );
-      }
-    }
-  };
 };
 
 PriceSlider.propTypes = {
