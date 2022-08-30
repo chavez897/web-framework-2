@@ -1,48 +1,44 @@
 import React from "react";
-import MultiSelect from "./MultiSelect";
+
 import FilterBarCSS from "../../assets/FilterBar.module.css";
+import LanguagesFilter from "./LanguagesFilter";
+import PriceSliderModal from "./PriceSlider";
 
-const FilterBar = ({
-  tutorItems,
-  setPriceFilter,
-  setSpokenLanguagesFilter,
-}) => {
-  const languagesArray = [];
-
-  const languagesOfTutors = [];
-  tutorItems.map((tutor) => {
-    tutor.props.tutor.spokenLanguages.map((language) =>
-      languagesOfTutors.push({ language })
-    );
-  });
-
-  const convertAndsetSpokenLanguagesFilter = (multipleLanguages) => {
-    multipleLanguages.map((languageObject) => {
-      languagesArray.push(languageObject.language.toLowerCase());
-    });
-    setSpokenLanguagesFilter(languagesArray);
-  };
-
+const FilterBar = ({ tutorItems, setSpokenLanguagesFilter }) => {
   return (
     <div className={FilterBarCSS.filterBar}>
-      <div>
+      {/* <div>
         <input
           placeholder="Price bellow"
           onChange={(event) => setPriceFilter(event.target.value)}
         ></input>
+      </div> */}
+      {/* <div className={FilterBarCSS.priceContainer}>
+        <div
+          className={FilterBarCSS.filterItemContainer}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <PriceFilter />
+        </div>
+        <PriceSliderModal open={isOpen}>Sasha</PriceSliderModal>
+      </div> */}
+      <div className={FilterBarCSS.filterItemContainer}>
+        <PriceSliderModal
+          // highestPrice={() => {
+          //   if (tutorItems)
+          //     return Math.max(...tutorItems.map((tutor) => tutor.lessonCost));
+          //   return "100";
+          // }}
+          highestPrice={Math.max(
+            ...tutorItems.map((tutor) => tutor.lessonCost)
+          )}
+        />
       </div>
-      <div className={FilterBarCSS.languageFilterContainer}>
-        <div className={FilterBarCSS.languageFilterText}>
-          <label>Languages</label>
-        </div>
-        <div className={FilterBarCSS.multiselect}>
-          <MultiSelect
-            data={[...new Set(languagesOfTutors)]}
-            displayValue="language"
-            onSelect={convertAndsetSpokenLanguagesFilter}
-            onRemove={convertAndsetSpokenLanguagesFilter}
-          />
-        </div>
+      <div className={FilterBarCSS.filterItemContainer}>
+        <LanguagesFilter
+          tutorItems={tutorItems}
+          setSpokenLanguagesFilter={setSpokenLanguagesFilter}
+        />
       </div>
     </div>
   );

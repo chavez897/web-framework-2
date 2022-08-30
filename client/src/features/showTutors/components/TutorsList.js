@@ -41,10 +41,12 @@ const TutorsList = () => {
     );
   });
 
+  if (tutors.length == 0) return <div>Loading...</div>;
+
   return (
     <div className={TutorsListCSS.filterTutorsPageContainer}>
       <FilterBar
-        tutorItems={tutorItems}
+        tutorItems={tutors}
         setPriceFilter={setPriceFilter}
         setSpokenLanguagesFilter={setSpokenLanguagesFilter}
       />

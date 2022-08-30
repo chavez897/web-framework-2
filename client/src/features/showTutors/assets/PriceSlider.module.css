@@ -1,0 +1,99 @@
+.header {
+  color: var(--lightTwo);
+}
+
+.container {
+  position: "absolute";
+  z-index: 1000;
+}
+
+.priceInput {
+  display: flex;
+}
+
+.priceInput .field {
+  height: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.field input {
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-size: 1rem;
+  text-align: center;
+  margin-left: 12px;
+  border-radius: 5px;
+  border: none;
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.priceInput .separator {
+  width: 130px;
+  display: flex;
+  font-size: 19px;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider {
+  height: 5px;
+  border-radius: 5px;
+  background: #ddd;
+  position: relative;
+}
+
+.slider .progress {
+  height: 5px;
+  left: 25%;
+  right: 25%;
+  position: absolute;
+  border-radius: 5px;
+  background: #17a2b8;
+}
+
+.rangeInput {
+  position: relative;
+}
+
+.rangeInput input {
+  position: absolute;
+
+  top: -5px;
+  height: 5px;
+  width: 100%;
+  background: none;
+  pointer-events: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* To work fine in Chrome and safary */
+input[type="range"]::-webkit-slider-thumb {
+  height: 17px;
+  width: 17px;
+  border-radius: 50%;
+  -webkit-appearance: none;
+  pointer-events: auto;
+  background: #17a2b8;
+}
+
+/* To work fine in Mozila Firefox */
+input[type="range"]::-moz-range-thumb {
+  height: 17px;
+  width: 17px;
+  border: none;
+  border-radius: 50%;
+  pointer-events: auto;
+  -moz-appearance: none;
+  background: #17a2b8;
+}
