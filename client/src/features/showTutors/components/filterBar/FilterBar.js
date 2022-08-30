@@ -2,9 +2,13 @@ import React from "react";
 
 import FilterBarCSS from "../../assets/FilterBar.module.css";
 import LanguagesFilter from "./LanguagesFilter";
-import PriceSliderModal from "./PriceSlider";
+import PriceSlider from "./PriceSlider";
 
-const FilterBar = ({ tutorItems, setSpokenLanguagesFilter }) => {
+const FilterBar = ({
+  tutorItems,
+  setSpokenLanguagesFilter,
+  setPriceFilter,
+}) => {
   return (
     <div className={FilterBarCSS.filterBar}>
       {/* <div>
@@ -13,17 +17,8 @@ const FilterBar = ({ tutorItems, setSpokenLanguagesFilter }) => {
           onChange={(event) => setPriceFilter(event.target.value)}
         ></input>
       </div> */}
-      {/* <div className={FilterBarCSS.priceContainer}>
-        <div
-          className={FilterBarCSS.filterItemContainer}
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <PriceFilter />
-        </div>
-        <PriceSliderModal open={isOpen}>Sasha</PriceSliderModal>
-      </div> */}
       <div className={FilterBarCSS.filterItemContainer}>
-        <PriceSliderModal
+        <PriceSlider
           // highestPrice={() => {
           //   if (tutorItems)
           //     return Math.max(...tutorItems.map((tutor) => tutor.lessonCost));
@@ -32,6 +27,7 @@ const FilterBar = ({ tutorItems, setSpokenLanguagesFilter }) => {
           highestPrice={Math.max(
             ...tutorItems.map((tutor) => tutor.lessonCost)
           )}
+          setPriceFilter={setPriceFilter}
         />
       </div>
       <div className={FilterBarCSS.filterItemContainer}>

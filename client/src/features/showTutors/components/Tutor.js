@@ -12,7 +12,9 @@ const Tutor = ({ tutor, priceFilter, languagesFilter }) => {
   if (
     (!languagesFilter.length || containLanguage == true) &&
     submittedText !== undefined &&
-    (tutor.lessonCost <= priceFilter || !priceFilter)
+    ((tutor.lessonCost <= priceFilter[1] &&
+      tutor.lessonCost >= priceFilter[0]) ||
+      !priceFilter)
   )
     return (
       <div className={`${TutorCSS.card}`}>

@@ -18,6 +18,10 @@
   align-items: center;
 }
 
+input:disabled {
+  background-color: transparent;
+}
+
 .field input {
   display: flex;
 

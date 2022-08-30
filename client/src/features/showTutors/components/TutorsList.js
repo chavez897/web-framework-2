@@ -23,7 +23,7 @@ const TutorsList = () => {
     }
   }, []);
 
-  const [priceFilter, setPriceFilter] = useState(10000);
+  const [priceFilter, setPriceFilter] = useState([0, 1000]);
   const [spokenLanguagesFilter, setSpokenLanguagesFilter] = useState([]);
 
   const tutors = useSelector(getAllTutors);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PriceSliderCSS from "../../assets/PriceSlider.module.css";
 import propTypes from "prop-types";
 
-const PriceSliderModal = ({ highestPrice }) => {
+const PriceSlider = ({ highestPrice, setPriceFilter }) => {
   console.log("highestPrice", highestPrice);
   const highestLimit = Math.ceil(highestPrice / 10) * 10; //Number(highestPrice) + sliderSteps;
   const [minPrice, setMinPrice] = useState(0);
@@ -32,9 +32,9 @@ const PriceSliderModal = ({ highestPrice }) => {
   }, [highestPrice]);
 
   useEffect(() => {
-    console.log("Entre");
     setLeftPercentageProgressBar(leftProgressBarPercentage(Number(minPrice)));
     setRightPercentageProgressBar(rightProgressBarPercentage(Number(maxPrice)));
+    setPriceFilter([minPrice, maxPrice]);
   }, [minPrice, maxPrice]);
 
   console.log("minPrice", minPrice);
@@ -134,9 +134,9 @@ const PriceSliderModal = ({ highestPrice }) => {
   };
 };
 
-PriceSliderModal.propTypes = {
+PriceSlider.propTypes = {
   minPrice: propTypes.number,
   maxPrice: propTypes.number,
 };
 
-export default PriceSliderModal;
+export default PriceSlider;
