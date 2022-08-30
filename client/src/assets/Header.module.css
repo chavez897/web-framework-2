@@ -1,66 +1,73 @@
-.navBar{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-    
+.navBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.appTitle{
-    font-size: 1.5rem;
-    margin: .5rem;
-    /* To compasate the image empty space */
-    margin-left: -1.1rem;
-   
+.appTitle {
+  font-size: 1.5rem;
+  margin: 0.5rem;
+  /* To compasate the image empty space */
+  margin-left: -1.1rem;
 }
 
-.logo{
-    width: 3.7rem;
-    margin-right: 0.6rem;
-    margin-top: -0.4rem;
-
-
+.companyName {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
-img{
-    width: 100%;
+.name {
+  color: var(--darkTwo);
+  font-size: 1.55rem;
+  line-height: 1.2;
 }
 
-.companyName{
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    
+.logo {
+  width: 3.7rem;
+  margin-right: 0.6rem;
+  margin-top: -0.4rem;
 }
 
-.name{
-    color: var(--darkTwo);
-    font-size: 1.55rem;
-    line-height: 1.2;
-
+img {
+  width: 100%;
 }
 
-.links{
-    display: flex;
-    list-style: none;
-    
-    
-
+.links {
+  display: flex;
+  list-style: none;
 }
 
-.links a{
-    
-    color: var(--lightTwo);
-    margin-left: 4.5rem;
-    display: inline-block;
-    transition: .3s
+.links a {
+  color: var(--lightTwo);
+  margin-left: 4.5rem;
+  display: inline-block;
+  transition: 0.3s;
 }
 
-a{
-    text-decoration: inherit;/* To remove the underline*/
+a {
+  text-decoration: inherit; /* To remove the underline*/
 }
 
-.links a:hover{
-    color: var(--hoverColor);
-    transform: scale(1.05)
+.links a:hover,
+.login:hover {
+  color: var(--hoverColor);
+  transform: scale(1.05);
+}
+
+.SearchBar {
+  width: 700px;
+  display: inline-block;
+}
+
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #17a3b8c9;
+  margin-left: 0.4rem;
+}
+
+.loginText {
+  margin-left: 0.2rem;
 }

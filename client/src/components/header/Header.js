@@ -5,6 +5,7 @@ import HeaderCSS from "../../assets/Header.module.css";
 import SearchBar from "../../features/searchTutors/components/SearchBar";
 import logoImage from "../../assets/logo.png";
 import { useLocation } from "react-router-dom";
+import { MdLogin } from "react-icons/md";
 
 const Header = () => {
   const path = useLocation().pathname;
@@ -16,33 +17,15 @@ const Header = () => {
           <h3 className={HeaderCSS.name}>Wise Paals</h3>
         </Link>
       </div>
-      {path != "/" && <SearchBar />}
+      <div className={HeaderCSS.SearchBar}>{path != "/" && <SearchBar />}</div>
       <div className={HeaderCSS.links}>
         <Link to={"/addTutor"}>Teach</Link>
+      </div>
+      <div className={HeaderCSS.login}>
+        <MdLogin /> <div className={HeaderCSS.loginText}>Login</div>
       </div>
     </div>
   );
 };
 
-/*
-const Header = () => {
-  return (
-    <div>
-      <div className="links">
-        <Link to={"/"}>
-          <img src={logoImage} alt="logo" />
-          <h3 id="totoId">Wise Paals</h3>
-        </Link>
-      </div>
-      <SearchBar />
-      <div className="linkh3">
-        <Link to={"/addTutor"}>Teach</Link>
-        <Link style={{ color: "pink" }} to={"/addTutor"}>
-          Totoro
-        </Link>
-      </div>
-    </div>
-  );
-};
-*/
 export default Header;
