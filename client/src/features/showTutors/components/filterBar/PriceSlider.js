@@ -3,7 +3,6 @@ import PriceSliderCSS from "../../assets/PriceSlider.module.css";
 import propTypes from "prop-types";
 
 const PriceSlider = ({ highestPrice, setPriceFilter }) => {
-  console.log("highestPrice", highestPrice);
   const highestLimit = Math.ceil(highestPrice / 10) * 10; //Number(highestPrice) + sliderSteps;
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(highestLimit);
@@ -12,7 +11,6 @@ const PriceSlider = ({ highestPrice, setPriceFilter }) => {
   const sliderSteps = 5;
 
   const leftProgressBarPercentage = (price) => {
-    console.log("price", price);
     return (price / highestPrice) * 100 + "%";
   };
 
@@ -36,9 +34,6 @@ const PriceSlider = ({ highestPrice, setPriceFilter }) => {
     setRightPercentageProgressBar(rightProgressBarPercentage(Number(maxPrice)));
     setPriceFilter([minPrice, maxPrice]);
   }, [minPrice, maxPrice]);
-
-  console.log("minPrice", minPrice);
-  console.log("maxPrice", maxPrice);
 
   return (
     <div className={PriceSliderCSS.container}>
