@@ -15,16 +15,14 @@ const lorem = new LoremIpsum({
 });
 
 export const postManyTutors = async (req, res) => {
-  console.log("Prepare your self");
-
   const tutors = await tutorList();
   await teacherFilterModel.deleteMany({}).then((error) => {
-    console.log("Deleted all tutors");
+    console.log("Deleted all previous tutors");
   });
   await teacherFilterModel
     .insertMany(tutors)
     .then(() => {
-      console.log("Good");
+      console.log("New random tutors added");
       res.status(201).json({
         message: `Previous tutors where deleted and ${process.env.RANDOM_TUTORS_NUMBER} random tutors where added`,
       });
@@ -46,7 +44,6 @@ const tutorList = async () => {
       picture: picturesList[i],
     });
   }
-  console.log("tutors: ", tutors);
   return tutors;
 };
 
@@ -57,7 +54,11 @@ const randomPictures = async () => {
     unsplashApiCallResult = await unsplashImages(i);
     switch (unsplashApiCallResult.type) {
       case "error":
-        console.log("error occurred: ", result.errors[0]);
+        // console.log("error occurred: ", result.errors[0]);
+        console.error(
+          `An error occurred while calling the Unsplash API: ${unsplashApiCallResult.errors[0]}`
+        );
+        throw new Error(unsplashApiCallResult.errors[0]);
       case "success":
         imagesUrls.push(
           unsplashApiCallResult.response.results.map((image) => image.urls.full)
