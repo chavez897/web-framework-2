@@ -1,6 +1,6 @@
-## Prerequisites to run the server
+## Prerequisites to run the REST API
 
-.env file with the following info:
+Add .env file in the root of the server folder with the following info:
 
 ```sh
 PORT = 5001
