@@ -1,0 +1,149 @@
+.container {
+  position: relative;
+  max-width: 430px;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  /* margin: 0 50px; */
+}
+
+.container .forms {
+  display: flex;
+  align-items: center;
+
+  width: 200%;
+}
+
+.loginWhiteContainer {
+  display: flex;
+  align-items: center;
+  height: 440px;
+  width: 200%;
+}
+
+.container .form {
+  width: 50%;
+  padding: 30px;
+}
+
+.login.form {
+  /* margin-left: -50%; */
+}
+
+.title {
+  position: relative;
+  font-size: 27px;
+  font-weight: 600;
+}
+
+.title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 30px;
+  border-radius: 25px;
+  background-color: #4070f4;
+}
+
+.inputField {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.inputField input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 0 35px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  border-bottom: 2px solid #ccc;
+  border-top: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.reactIcon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font: 23px;
+}
+
+.leftIcon {
+  left: 0;
+}
+
+.viewHideIcon {
+  right: 0;
+  cursor: pointer;
+}
+
+.inputField input:is(:focus, :valid) {
+  border-bottom-color: #4070f4;
+}
+
+.rememberMeAndCheckBoxContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.checkBoxContainer {
+  display: flex;
+  align-items: center;
+}
+
+.checkBoxContainer input {
+  margin: 0 8px -2px 4px;
+  accent-color: #4070f4;
+}
+
+.text {
+  color: #333;
+  font: 14px;
+}
+
+.form .highlightedText.text {
+  color: #4070f4;
+  display: inline-block;
+}
+
+.highlightedText:hover {
+  text-decoration: underline;
+}
+
+.form .button {
+  margin-top: 35px;
+}
+
+.form .button input {
+  border: none;
+  letter-spacing: 1px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #4070f4;
+  border-radius: 6px;
+  cursor: pointer;
+  transform: all 0.3s;
+}
+
+.button input:hover {
+  background-color: #265df2;
+}
+
+.loginSignup {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.signUp {
+}

@@ -1,5 +1,6 @@
 .navBar {
   display: flex;
+
   justify-content: space-between;
   align-items: center;
 }
@@ -66,6 +67,7 @@ a {
   justify-content: center;
   color: #17a3b8c9;
   margin-left: 0.4rem;
+  cursor: pointer;
 }
 
 .loginText {

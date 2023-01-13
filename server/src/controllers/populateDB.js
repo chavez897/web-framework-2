@@ -2,7 +2,6 @@ import teacherFilterModel from "../database/models/tutorModel.js";
 import { maleNames, skills, languages } from "./randomLists.js";
 import { LoremIpsum } from "lorem-ipsum";
 import { unsplashImages } from "./unsplashImages.js";
-import { encode, decode } from "node-base64-image";
 
 const lorem = new LoremIpsum({
   sentencesPerParagraph: {
@@ -26,6 +25,9 @@ export const postManyTutors = async (req, res) => {
     .insertMany(tutors)
     .then(() => {
       console.log("Good");
+      res.status(201).json({
+        message: `Previous tutors where deleted and ${process.env.RANDOM_TUTORS_NUMBER} random tutors where added`,
+      });
     })
     .catch((error) => res.status(409).json({ message: error.message }));
 };
@@ -33,7 +35,7 @@ export const postManyTutors = async (req, res) => {
 const tutorList = async () => {
   const tutors = [];
   const picturesList = await randomPictures();
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < process.env.RANDOM_TUTORS_NUMBER; i++) {
     const randomSkills = generateRandomList(skills);
     tutors.push({
       name: maleNames[i],
@@ -64,8 +66,6 @@ const randomPictures = async () => {
   }
   const imagesUrlList = [];
   imagesUrls.map((page) => page.map((url) => imagesUrlList.push(url)));
-  console.log("imagesUrls: ", imagesUrlList.length);
-  console.log("imagesUrls: ", imagesUrlList);
   return imagesUrlList;
 };
 
