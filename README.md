@@ -6,7 +6,7 @@ Wise Paals is a platform that connects students with tutors. The user can filter
 
 ## Features
 
-- [x] Register and Login Page
+- [x] Register and Login Page (Modal)
 - [x] Forgot Password
 - [x] Find Tutors based on different filters
 - [x] Register as a tutor
