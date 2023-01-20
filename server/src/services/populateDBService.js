@@ -1,7 +1,18 @@
 import teacherFilterModel from "../database/models/tutorModel.js";
-import { maleNames, skills, languages } from "./randomLists.js";
+import { maleNames, skills, languages } from "../services/utils/randomLists.js";
 import { LoremIpsum } from "lorem-ipsum";
-import { unsplashImages } from "./unsplashImages.js";
+import { unsplashImages } from "../services/utils/unsplashImages.js";
+
+export const postManyTutorsService = async () => {
+  const tutors = await tutorList();
+  await teacherFilterModel.deleteMany({}).then((error) => {
+    console.log("Deleted all previous tutors");
+  });
+  await teacherFilterModel.insertMany(tutors).then(() => {
+    console.log("New random tutors added");
+  });
+  return `Previous tutors where deleted and ${process.env.RANDOM_TUTORS_NUMBER} random tutors where added`;
+};
 
 const lorem = new LoremIpsum({
   sentencesPerParagraph: {
@@ -13,22 +24,6 @@ const lorem = new LoremIpsum({
     min: 4,
   },
 });
-
-export const postManyTutors = async (req, res) => {
-  const tutors = await tutorList();
-  await teacherFilterModel.deleteMany({}).then((error) => {
-    console.log("Deleted all previous tutors");
-  });
-  await teacherFilterModel
-    .insertMany(tutors)
-    .then(() => {
-      console.log("New random tutors added");
-      res.status(201).json({
-        message: `Previous tutors where deleted and ${process.env.RANDOM_TUTORS_NUMBER} random tutors where added`,
-      });
-    })
-    .catch((error) => res.status(409).json({ message: error.message }));
-};
 
 const tutorList = async () => {
   const tutors = [];

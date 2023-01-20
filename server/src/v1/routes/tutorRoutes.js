@@ -3,8 +3,8 @@ import {
   getTutors,
   createNewTutor,
 } from "../../controllers/tutorController.js";
+import { postManyTutors } from "../../controllers/populateDBController.js";
 
-import { postManyTutors } from "../../controllers/populateDB.js";
 import apicache from "apicache";
 
 const router = express.Router();
