@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 
-import { RiLockPasswordLine } from "react-icons/ri";
-import ShowOrHideIcon from "../features/authentication/components/ShowOrHideIcon";
-
 import LoginCSS from "../assets/Login.module.css";
-import EmailInput from "../features/authentication/components/EmailInput";
 import Registration from "../features/authentication/components/Registration";
 import Login from "../features/authentication/components/Login";
 

@@ -12,18 +12,19 @@
   display: flex;
   align-items: center;
 
-  width: 200%;
+  width: 100%;
 }
 
 .loginWhiteContainer {
   display: flex;
   align-items: center;
   height: 440px;
-  width: 200%;
+  width: 100%;
 }
 
 .container .form {
-  width: 50%;
+  width: 100%;
+  /* background: green; */
   padding: 30px;
 }
 
