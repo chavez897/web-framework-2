@@ -7,7 +7,11 @@ import ShowOrHideIcon from "./ShowOrHideIcon";
 import MainButton from "./MainButton";
 import Title from "./Title";
 
-const Registration = ({ togglePwVisibility, pwFieldType }) => {
+const Registration = ({
+  togglePwVisibility,
+  pwFieldType,
+  toggleLoginRegister,
+}) => {
   return (
     <div className={`${LoginCSS.signUp} ${LoginCSS.form}`}>
       <Title text="Registration" />
@@ -64,10 +68,10 @@ const Registration = ({ togglePwVisibility, pwFieldType }) => {
         <span className={LoginCSS.text}>
           Not a member?{" "}
           <div
-            href="#"
+            onClick={toggleLoginRegister}
             className={`${LoginCSS.highlightedText} ${LoginCSS.text} ${LoginCSS.signupText}`}
           >
-            Signup now
+            Login Now
           </div>
         </span>
       </div>

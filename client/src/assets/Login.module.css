@@ -115,6 +115,7 @@
 .form .highlightedText.text {
   color: #4070f4;
   display: inline-block;
+  cursor: pointer;
 }
 
 .highlightedText:hover {
