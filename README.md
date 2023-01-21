@@ -70,7 +70,6 @@ http://localhost:5001/api/v1/generate-random-tutors
 The DB will be populated with the number of tutors that you defined in the RANDOM_TUTORS_NUMBER variable of your .env file.
 
 </details>
-<br/>
 
 ### Contributors
 
