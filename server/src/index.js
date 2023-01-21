@@ -32,6 +32,6 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 //Route to the tutors CRUD
 app.use("/api/v1/tutors", tutorRoutes);
 //Route to populate the DB with random tutors
-app.use("/api/v1/populateDB", populateDBRoutes);
+app.use("/api/v1/generate-random-tutors", populateDBRoutes);
 //Authentication routes
-app.use("/api/v1/authentication", authenticationRoutes);
+app.use("/api/v1/auth", authenticationRoutes);
