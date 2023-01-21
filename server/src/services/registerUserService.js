@@ -15,6 +15,7 @@ export const registerUserService = async (name, email, password) => {
       name,
       email,
       password: hashedPassword,
+      timestamp: true,
     });
     if (user) {
       return user;
