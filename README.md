@@ -41,6 +41,40 @@ RANDOM_TUTORS_NUMBER = 30
 UNSPLASH_ACCESS_KEY = your_key
 ```
 
+## REST API Endpoints
+
+<details>
+<summary>Click to Expand</summary>
+### Get all tutors
+
+```
+http://localhost:5001/api/v1/tutors
+```
+
+### Add a tutor
+
+```
+http://localhost:5001/api/v1/tutors/postoffer
+```
+
+### Register User
+
+```
+http://localhost:5001/api/v1/authentication/register
+```
+
+### Login User
+
+```
+http://localhost:5001/api/v1/authentication/login
+```
+
+### Populate DB with random tutors
+
+```
+http://localhost:5001/api/v1/populateDB
+```
+
 ## Start the project
 
 Inside client and server folder run:
@@ -49,13 +83,19 @@ Inside client and server folder run:
 npm start
 ```
 
+</details>
+
 ## To populate DB With Random Tutors
 
+<details>
+<summary>Click to Expand</summary>
 Start the server and go to the following path:
 
 - http://localhost:5001/api/v1/populateDB
 
 The DB will be populated with the number of tutors that you defined in the RANDOM_TUTORS_NUMBER variable of your .env file.
+
+</details>
 
 ### Contributors
 

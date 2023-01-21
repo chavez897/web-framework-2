@@ -14,8 +14,6 @@ const cache = apicache.middleware;
 
 router
   .get("/", cache("2 minutes"), getTutors)
-  .post("/registerUser", registerUser)
-  .post("/postoffer", createNewTutor)
-  .get("/populateDB", postManyTutors);
+  .post("/postoffer", createNewTutor);
 
 export default router;
