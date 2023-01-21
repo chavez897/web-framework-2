@@ -2,7 +2,7 @@
 
 ## Overview
 
-Wise Paals is a platform that connects students with tutors. The user can filter for the tutor of his preference from different parameters such as the subject and the price. An user with the role of admin can manage the tutors, users and see the web application statistics.
+Wise Paals is a platform that connects students with tutors. The user can filter for the tutor of his preference from different parameters such as the subject and the price. The user can also register as a tutor and add his information to the platform.
 
 ## Features
 
