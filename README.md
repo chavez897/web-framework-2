@@ -53,7 +53,7 @@ npm start
 
 Start the server and go to the following path:
 
-- http://localhost:5001/api/v1/tutors/populateDB
+- http://localhost:5001/api/v1/populateDB
 
 The DB will be populated with the number of tutors that you defined in the RANDOM_TUTORS_NUMBER variable of your .env file.
 

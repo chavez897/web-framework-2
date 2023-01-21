@@ -4,6 +4,7 @@ import {
   createNewTutor,
 } from "../../controllers/tutorController.js";
 import { postManyTutors } from "../../controllers/populateDBController.js";
+import { registerUser } from "../../controllers/registerController.js";
 
 import apicache from "apicache";
 
@@ -13,6 +14,7 @@ const cache = apicache.middleware;
 
 router
   .get("/", cache("2 minutes"), getTutors)
+  .post("/registerUser", registerUser)
   .post("/postoffer", createNewTutor)
   .get("/populateDB", postManyTutors);
 
