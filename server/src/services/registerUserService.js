@@ -1,9 +1,10 @@
 import userSchema from "../database/models/userModel.js";
 import bcrypt from "bcrypt";
 
-export const registerUserService = async (name, password, email) => {
+export const registerUserService = async (name, email, password) => {
   const userExists = await userSchema.findOne({ email });
   if (userExists) {
+    console.log("userExists", userExists);
     throw new Error("User already exists");
   }
 
