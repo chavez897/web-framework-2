@@ -39,10 +39,18 @@ export const loginUser = async (req, res) => {
     return;
   }
   try {
-    const user = await handleLoginService(email, password);
-    if (user) {
-      //TODO: ADD JWT
-      res.sendStatus(200);
+    const [refreshToken, accessToken] = await handleLoginService(
+      email,
+      password
+    );
+    if (refreshToken) {
+      res.cookie("jwt", refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        maxAge: 1000 * 60 * 60 * 24,
+      });
+      res.status(200).json({ accessToken });
     }
   } catch (error) {
     if (error.message === "Not valid credentials") {

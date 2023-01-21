@@ -1,5 +1,7 @@
 import userSchema from "../database/models/userModel.js";
 import bcrypt from "bcrypt";
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 
 export const registerUserService = async (name, email, password) => {
   const userExists = await userSchema.findOne({ email });
@@ -38,6 +40,34 @@ export const handleLoginService = async (email, password) => {
     console.log("Not valid password");
     throw new Error("Not valid credentials");
   }
+  //Generate access token
+  const accessToken = jwt.sign(
+    { email: userExists.email },
+    process.env.ACCESS_TOKEN_SECRET,
+    {
+      expiresIn: "60s",
+    }
+  );
+  //Generate refresh token
+  const refreshToken = jwt.sign(
+    { email: userExists.email },
+    process.env.REFRESH_TOKEN_SECRET,
+    {
+      expiresIn: "24h",
+    }
+  );
+  //Add refresh token to user document
+  userSchema.findOneAndUpdate(
+    { email },
+    { $set: { refreshToken: refreshToken } },
+    { new: true },
+    (err, doc) => {
+      if (err) {
+        console.log("Something wrong when updating data!");
+        throw new Error(err.message);
+      }
+    }
+  );
 
-  return userExists;
+  return [refreshToken, accessToken];
 };
