@@ -6,6 +6,7 @@ import connectDb from "./database/MongoDbConfig.js";
 import dotenv from "dotenv";
 import authenticationRoutes from "./v1/routes/authenticationRoutes.js";
 import populateDBRoutes from "./v1/routes/populateDBRoutes.js";
+import cookieParser from "cookie-parser";
 
 //Choosen architekture: 3 layer architecture
 //Router -> Controller -> Service Layer -> Data Access Layer
@@ -27,8 +28,13 @@ connectDb()
 
 //Configure server
 app.use(cors({ origin: "*" }));
+//Middleware to parse json data
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
+//Middleware to parse urlencoded data
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+//Middleware to parse cookies
+app.use(cookieParser());
+
 //Route to the tutors CRUD
 app.use("/api/v1/tutors", tutorRoutes);
 //Route to populate the DB with random tutors

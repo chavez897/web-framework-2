@@ -3,30 +3,6 @@ import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 
-export const registerUserService = async (name, email, password) => {
-  const userExists = await userSchema.findOne({ email });
-  if (userExists) {
-    console.log("userExists", userExists);
-    throw new Error("User already exists");
-  }
-
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  try {
-    const user = await userSchema.create({
-      name,
-      email,
-      password: hashedPassword,
-      timestamp: true,
-    });
-    if (user) {
-      return user;
-    }
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
-
 export const handleLoginService = async (email, password) => {
   const userExists = await userSchema.findOne({ email });
   if (!userExists) {
@@ -45,7 +21,7 @@ export const handleLoginService = async (email, password) => {
     { email: userExists.email },
     process.env.ACCESS_TOKEN_SECRET,
     {
-      expiresIn: "15m",
+      expiresIn: process.env.ACCESS_TOKEN_LIFE,
     }
   );
   //Generate refresh token
@@ -53,7 +29,7 @@ export const handleLoginService = async (email, password) => {
     { email: userExists.email },
     process.env.REFRESH_TOKEN_SECRET,
     {
-      expiresIn: "24h",
+      expiresIn: process.env.REFRESH_TOKEN_LIFE,
     }
   );
   //Add refresh token to user document
