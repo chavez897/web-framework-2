@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import authenticationRoutes from "./v1/routes/authenticationRoutes.js";
 import populateDBRoutes from "./v1/routes/populateDBRoutes.js";
 import cookieParser from "cookie-parser";
+import corsOptions from "./config/corsOptions.js";
 
 //Choosen architekture: 3 layer architecture
 //Router -> Controller -> Service Layer -> Data Access Layer
@@ -27,7 +28,8 @@ connectDb()
   });
 
 //Configure server
-app.use(cors({ origin: "*" }));
+// app.use(cors({ origin: "*" }));
+app.use(cors(corsOptions));
 //Middleware to parse json data
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 //Middleware to parse urlencoded data
