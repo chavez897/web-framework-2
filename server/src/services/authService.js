@@ -1,6 +1,5 @@
 import userSchema from "../database/models/userModel.js";
 import bcrypt from "bcrypt";
-import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 
 export const handleLoginService = async (email, password) => {
@@ -33,16 +32,10 @@ export const handleLoginService = async (email, password) => {
     }
   );
   //Add refresh token to user document
-  userSchema.findOneAndUpdate(
+  await userSchema.findOneAndUpdate(
     { email },
-    { $set: { refreshToken: refreshToken } },
-    { new: true },
-    (err, doc) => {
-      if (err) {
-        console.log("Something wrong when updating data!");
-        throw new Error(err.message);
-      }
-    }
+    { refreshToken: refreshToken },
+    { new: true }
   );
 
   return [refreshToken, accessToken];
