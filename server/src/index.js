@@ -8,6 +8,7 @@ import authenticationRoutes from "./v1/routes/authenticationRoutes.js";
 import populateDBRoutes from "./v1/routes/populateDBRoutes.js";
 import cookieParser from "cookie-parser";
 import corsOptions from "./config/corsOptions.js";
+import credentials from "./middlewares/credentials.js";
 
 //Choosen architekture: 3 layer architecture
 //Router -> Controller -> Service Layer -> Data Access Layer
@@ -28,6 +29,11 @@ connectDb()
   });
 
 //Configure server
+
+//Middleware to be able to set cookies in the response
+//Before cors so it can set the credentials header and cors doesn't throw an error
+app.use(credentials);
+
 // app.use(cors({ origin: "*" }));
 app.use(cors(corsOptions));
 //Middleware to parse json data

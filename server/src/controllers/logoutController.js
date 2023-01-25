@@ -13,7 +13,8 @@ export const handleLogout = async (req, res) => {
     //Clear cookies in response
     res.clearCookie("jwt", {
       httpOnly: true,
-      maxAge: process.env.REFRESH_TOKEN_COOKIE_MAX_AGE,
+      sameSite: "none",
+      secure: true,
     });
 
     res.sendStatus(204); //No content

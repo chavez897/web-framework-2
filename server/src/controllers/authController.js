@@ -16,6 +16,8 @@ export const loginUser = async (req, res) => {
     if (refreshToken) {
       res.cookie("jwt", refreshToken, {
         httpOnly: true,
+        sameSite: "None",
+        secure: true,
         maxAge: process.env.REFRESH_TOKEN_COOKIE_MAX_AGE,
       });
       res.status(200).json({ accessToken });
