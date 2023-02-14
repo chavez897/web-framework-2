@@ -1,24 +1,22 @@
 import mongoose from "mongoose";
 
 const reviewSchema = mongoose.Schema({
-  name: {
-    type: String,
-    require: true,
-  },
   rating: {
     type: Number,
     require: true,
     default: 0,
   },
-  comment: {
+  review: {
     type: String,
     require: true,
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    require: true,
-    ref: "User",
-  },
+  // user: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   require: true,
+  //   ref: "User",
+  // },
+},{
+  timestamp:true
 });
 
 const teacherFilterSchema = mongoose.Schema(
@@ -69,5 +67,7 @@ const teacherFilterSchema = mongoose.Schema(
 );
 
 const teacherFilter = mongoose.model("TeacherFilter", teacherFilterSchema);
+const Review = new mongoose.model("Review", reviewSchema);
 
 export default teacherFilter;
+export {Review};
