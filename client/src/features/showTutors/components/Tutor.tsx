@@ -1,9 +1,26 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { getSubmittedText } from "../../searchTutors";
+import { getSubmittedText } from "../../searchTutors/index.tsx";
 import TutorCSS from "../assets/Tutor.module.css";
 
-const Tutor = ({ tutor, priceFilter, languagesFilter }) => {
+interface TutorProps {
+  tutor: {
+    name: string;
+    description: string;
+    skills: string[];
+    spokenLanguages: string[];
+    lessonCost: number;
+    picture: string;
+  };
+  priceFilter: [number, number];
+  languagesFilter: string[];
+}
+
+const Tutor: React.FC<TutorProps> = ({
+  tutor,
+  priceFilter,
+  languagesFilter,
+}) => {
   const submittedText = useSelector(getSubmittedText);
 
   const containLanguage = tutor.spokenLanguages.some((language) =>

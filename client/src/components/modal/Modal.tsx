@@ -2,7 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import ModalCSS from "../../assets/Modal.module.css";
 
-const Modal = ({ open, setIsModalOpen, children }) => {
+interface ModalProps {
+  open: boolean;
+  setIsModalOpen: (open: boolean) => void;
+  children: React.ReactNode;
+}
+
+const Modal: React.FC<ModalProps> = ({ open, setIsModalOpen, children }) => {
   if (!open) {
     return null;
   }

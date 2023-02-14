@@ -1,13 +1,23 @@
 import React from "react";
-import EmailInput from "./EmailInput";
+import EmailInput from "./EmailInput.tsx";
 import LoginCSS from "../../../assets/Login.module.css";
 import { BsPerson } from "react-icons/bs";
 import { RiLockPasswordLine } from "react-icons/ri";
-import ShowOrHideIcon from "./ShowOrHideIcon";
-import MainButton from "./MainButton";
-import Title from "./Title";
+import ShowOrHideIcon from "./ShowOrHideIcon.tsx";
+import MainButton from "./MainButton.tsx";
+import Title from "./Title.tsx";
 
-const Login = ({ togglePwVisibility, pwFieldType, toggleLoginRegister }) => {
+interface LoginProps {
+  togglePwVisibility: (event: React.MouseEvent<HTMLElement>) => void;
+  pwFieldType: string;
+  toggleLoginRegister: (event: React.MouseEvent<HTMLElement>) => void;
+}
+
+const Login: React.FC<LoginProps> = ({
+  togglePwVisibility,
+  pwFieldType,
+  toggleLoginRegister,
+}) => {
   return (
     <div className={LoginCSS.loginWhiteContainer}>
       <div className={`${LoginCSS.login} ${LoginCSS.form}`}>

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
 import LoginCSS from "../assets/Login.module.css";
-import Registration from "../features/authentication/components/Registration";
-import Login from "../features/authentication/components/Login";
+import Registration from "../features/authentication/components/Registration.tsx";
+import Login from "../features/authentication/components/Login.tsx";
 
 const Authentication = () => {
-  const [pwFieldType, setPwFieldType] = useState("password");
-  const [isLogin, setIsLogin] = useState(true);
+  const [pwFieldType, setPwFieldType] = useState<string>("password");
+  const [isLogin, setIsLogin] = useState<boolean>(true);
   const togglePwVisibility = () => {
     setPwFieldType((fieldType) => {
       if (fieldType === "password") setPwFieldType("text");

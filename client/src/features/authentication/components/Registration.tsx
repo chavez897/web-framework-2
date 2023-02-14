@@ -1,13 +1,19 @@
 import React from "react";
-import EmailInput from "./EmailInput";
+import EmailInput from "./EmailInput.tsx";
 import LoginCSS from "../../../assets/Login.module.css";
 import { BsPerson } from "react-icons/bs";
 import { RiLockPasswordLine } from "react-icons/ri";
-import ShowOrHideIcon from "./ShowOrHideIcon";
-import MainButton from "./MainButton";
-import Title from "./Title";
+import ShowOrHideIcon from "./ShowOrHideIcon.tsx";
+import MainButton from "./MainButton.tsx";
+import Title from "./Title.tsx";
 
-const Registration = ({
+interface Props {
+  togglePwVisibility: () => void;
+  pwFieldType: string;
+  toggleLoginRegister: () => void;
+}
+
+const Registration: React.FC<Props> = ({
   togglePwVisibility,
   pwFieldType,
   toggleLoginRegister,

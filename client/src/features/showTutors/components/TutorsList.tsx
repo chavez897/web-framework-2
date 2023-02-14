@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Tutor from "./Tutor";
+import Tutor from "./Tutor.tsx";
 import TutorsListCSS from "../assets/TutorsList.module.css";
 import { useParams } from "react-router-dom";
 import {
   getSubmittedText,
   getAllTutors,
   textSubmitted,
-} from "../../searchTutors";
-import fetchTeachers from "../../../services/fetchTeachersService";
-import FilterBar from "./filterBar/FilterBar";
+} from "../../searchTutors/index.tsx";
+import fetchTeachers from "../../../services/fetchTeachersService.ts";
+import FilterBar from "./filterBar/FilterBar.tsx";
 
 const TutorsList = () => {
   const { skill } = useParams();
@@ -23,14 +23,16 @@ const TutorsList = () => {
     }
   }, []);
 
-  const [priceFilter, setPriceFilter] = useState([0, 1000]);
-  const [spokenLanguagesFilter, setSpokenLanguagesFilter] = useState([]);
+  const [priceFilter, setPriceFilter] = useState<[number, number]>([0, 1000]);
+  const [spokenLanguagesFilter, setSpokenLanguagesFilter] = useState<string[]>(
+    []
+  );
 
   const tutors = useSelector(getAllTutors);
 
   if (!tutors) return <div>Loading...</div>;
   //Map function is to do something to each element of the array
-  const tutorItems = tutors.map((tutor) => {
+  const tutorItems = tutors.map((tutor: { _id: string }) => {
     return (
       <Tutor
         priceFilter={priceFilter}

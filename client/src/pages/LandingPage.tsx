@@ -1,9 +1,9 @@
 import React from "react";
 import LandingPageCSS from "../assets/LandingPage.module.css";
 import landingPicture from "../assets/landingPicture.png";
-import SearchBar from "../features/searchTutors/components/SearchBar";
+import SearchBar from "../features/searchTutors/components/SearchBar.tsx";
 
-const LandingPage = () => {
+const LandingPage: React.FC = () => {
   return (
     <div className={LandingPageCSS.showcaseArea}>
       <div className={`container ${LandingPageCSS.container}`}>

@@ -1,7 +1,11 @@
 import React from "react";
 import LoginCSS from "../../../assets/Login.module.css";
 
-const MainButton = ({ text }) => {
+interface MainButtonProps {
+  text: string;
+}
+
+const MainButton: React.FC<MainButtonProps> = ({ text }) => {
   return (
     <div className={`${LoginCSS.inputField} ${LoginCSS.button}`}>
       <input type="button" value={text} />

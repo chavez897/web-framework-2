@@ -1,19 +1,29 @@
 import React from "react";
 import FilterBarCSS from "../../assets/FilterBar.module.css";
-import MultiSelect from "./MultiSelect";
+import MultiSelect from "./MultiSelect.tsx";
 
-const LanguagesFilter = ({ tutorItems, setSpokenLanguagesFilter }) => {
-  const languagesArray = [];
+interface tutorItemsProps {
+  tutorItems: Array<object>;
+  setSpokenLanguagesFilter: (languagesArray: Array<string>) => void;
+}
 
-  const languagesOfTutors = [];
-  tutorItems.map((tutor) => {
-    tutor.spokenLanguages.map((language) =>
+const LanguagesFilter: React.FC<tutorItemsProps> = ({
+  tutorItems,
+  setSpokenLanguagesFilter,
+}) => {
+  const languagesArray: Array<string> = [];
+
+  const languagesOfTutors: Array<object> = [];
+  tutorItems.map((tutor: object) => {
+    tutor.spokenLanguages.map((language: string) =>
       languagesOfTutors.push({ language })
     );
   });
 
-  const convertAndsetSpokenLanguagesFilter = (multipleLanguages) => {
-    multipleLanguages.map((languageObject) => {
+  const convertAndsetSpokenLanguagesFilter = (
+    multipleLanguages: Array<object>
+  ) => {
+    multipleLanguages.map((languageObject: object) => {
       languagesArray.push(languageObject.language.toLowerCase());
     });
     setSpokenLanguagesFilter(languagesArray);

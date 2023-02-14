@@ -1,7 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import fetchTeachers from "../../../services/fetchTeachersService";
+import fetchTeachers from "../../../services/fetchTeachersService.ts";
 
-const initialState = {
+interface SearchBarState {
+  currentText: string;
+  submittedText: string;
+  tutors: [];
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+}
+
+const initialState: SearchBarState = {
   currentText: "",
   submittedText: "",
   tutors: [],
@@ -38,13 +46,17 @@ export const searchBarSlice = createSlice({
 
 export const { searchCriteriaChanged, textSubmitted } = searchBarSlice.actions;
 
-export const getCurrentText = (state) => state.searchBar.currentText;
-export const getSubmittedText = (state) => state.searchBar.submittedText;
+export const getCurrentText = (state: SearchBarState) =>
+  state.searchBar.currentText;
+export const getSubmittedText = (state: SearchBarState) =>
+  state.searchBar.submittedText;
 
-export const getAllTutors = (state) => {
+export const getAllTutors = (state: SearchBarState) => {
   return state.searchBar.tutors;
 };
-export const getTutorsRequestStatus = (state) => state.tutors.status;
-export const getTutorsRequestError = (state) => state.tutors.error;
+export const getTutorsRequestStatus = (state: SearchBarState) =>
+  state.tutors.status;
+export const getTutorsRequestError = (state: SearchBarState) =>
+  state.tutors.error;
 
 export default searchBarSlice.reducer;

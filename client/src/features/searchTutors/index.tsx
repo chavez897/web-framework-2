@@ -1,14 +1,24 @@
 import React from "react";
-import SearchBarComponent from "./components/SearchBar";
+import SearchBarComponent from "./components/SearchBar.tsx";
 import searchBarReducerFromSlice, {
   getSubmittedText as getSubmittedTextFromSlice,
   getAllTutors as getAllTutorsFromSlice,
   textSubmitted as textSubmittedFromSlice,
   fetchTeachers as fetchTeacherFromSlice,
-} from "./store/searchBarSlice";
+} from "./store/searchBarSlice.ts";
 
-export const SearchBar = () => {
-  return <SearchBarComponent />;
+interface SearchBarProps {
+  submittedText: string;
+  allTutors: string[];
+}
+
+export const SearchBar: React.FC<SearchBarProps> = ({
+  submittedText,
+  allTutors,
+}) => {
+  return (
+    <SearchBarComponent submittedText={submittedText} allTutors={allTutors} />
+  );
 };
 
 export const getSubmittedText = () => {

@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import PriceSliderCSS from "../../assets/PriceSlider.module.css";
-import propTypes from "prop-types";
+import propTypes, { ReactNodeLike } from "prop-types";
 
-const PriceSlider = ({ highestPrice, setPriceFilter }) => {
+interface PriceSliderProps {
+  highestPrice: number;
+  setPriceFilter: (price: number[]) => void;
+  ReactNodeLike: ReactNodeLike;
+}
+
+const PriceSlider = (props: PriceSliderProps) => {
+  const { highestPrice, setPriceFilter } = props;
   const highestLimit = Math.ceil(highestPrice / 10) * 10; //Number(highestPrice) + sliderSteps;
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(highestLimit);
@@ -10,11 +17,11 @@ const PriceSlider = ({ highestPrice, setPriceFilter }) => {
   const rangeGap = 5;
   const sliderSteps = 5;
 
-  const leftProgressBarPercentage = (price) => {
+  const leftProgressBarPercentage = (price: number) => {
     return (price / highestPrice) * 100 + "%";
   };
 
-  const rightProgressBarPercentage = (price) => {
+  const rightProgressBarPercentage = (price: number) => {
     return 100 - (price / highestLimit) * 100 + "%";
   };
 
@@ -111,8 +118,11 @@ const PriceSlider = ({ highestPrice, setPriceFilter }) => {
 };
 
 PriceSlider.propTypes = {
+  highestPrice: propTypes.number.isRequired,
+  setPriceFilter: propTypes.func.isRequired,
   minPrice: propTypes.number,
   maxPrice: propTypes.number,
+  ReactNodeLike: propTypes.node,
 };
 
 export default PriceSlider;

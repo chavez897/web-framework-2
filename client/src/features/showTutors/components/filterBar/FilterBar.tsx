@@ -1,10 +1,18 @@
 import React from "react";
 
 import FilterBarCSS from "../../assets/FilterBar.module.css";
-import LanguagesFilter from "./LanguagesFilter";
-import PriceSlider from "./PriceSlider";
+import LanguagesFilter from "./LanguagesFilter.tsx";
+import PriceSlider from "./PriceSlider.tsx";
 
-const FilterBar = ({
+interface Props {
+  tutorItems: Array<{
+    lessonCost: number;
+  }>;
+  setSpokenLanguagesFilter: (languages: Array<string>) => void;
+  setPriceFilter: (price: number) => void;
+}
+
+const FilterBar: React.FC<Props> = ({
   tutorItems,
   setSpokenLanguagesFilter,
   setPriceFilter,

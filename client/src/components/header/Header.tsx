@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import HeaderCSS from "../../assets/Header.module.css";
 
-import SearchBar from "../../features/searchTutors/components/SearchBar";
+import SearchBar from "../../features/searchTutors/components/SearchBar.tsx";
 import logoImage from "../../assets/logo.png";
-import { useLocation } from "react-router-dom";
+import { useLocation, RouteComponentProps } from "react-router-dom";
 import { MdLogin } from "react-icons/md";
-import Modal from "../modal/Modal";
-import Authentication from "../../pages/Authentication";
+import Modal from "../modal/Modal.tsx";
+import Authentication from "../../pages/Authentication.tsx";
 
-const Header = () => {
+interface Props extends RouteComponentProps {}
+
+const Header: React.FC<Props> = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const path = useLocation().pathname;
   return (

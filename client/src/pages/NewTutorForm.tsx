@@ -7,16 +7,16 @@ import {
   getNewTutorRequestStatus,
   getNewTutorRequestError,
   addTutorService,
-} from "../features/addTutor";
+} from "../features/addTutor/index.ts";
 
 const NewTutorForm = () => {
-  const [picture, setPicture] = useState();
+  const [picture, setPicture] = useState<string | undefined>();
   const dispatch = useDispatch();
-  const onSubmit = (e) => {
+  const onSubmit = (e: { [key: string]: any }) => {
     e.picture = picture;
     dispatch(addTutorService(e));
   };
-  const validate = (e) => {};
+  const validate = (e: { [key: string]: any }) => {};
   return (
     <Form onSubmit={onSubmit} validate={validate}>
       {({ handleSubmit }) => (
@@ -41,8 +41,8 @@ const NewTutorForm = () => {
                 <input
                   placeholder="Lesson cost"
                   type="number"
-                  min="1"
-                  step="any"
+                  min={1}
+                  step={0.01}
                   {...input}
                 />
               </div>

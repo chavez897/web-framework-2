@@ -1,7 +1,7 @@
 import React from "react";
-import TutorsList from "../features/showTutors/components/TutorsList";
+import TutorsList from "../features/showTutors/components/TutorsList.tsx";
 
-const FilterTutors = () => {
+const FilterTutors: React.FC = () => {
   return (
     <div>
       <TutorsList />
