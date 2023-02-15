@@ -4,6 +4,8 @@ import HeaderCSS from "../../assets/Header.module.css";
 
 import SearchBar from "../../features/searchTutors/components/SearchBar.tsx";
 import logoImage from "../../assets/logo.png";
+import statistics from "../../assets/statistics.png";
+
 import { useLocation, RouteComponentProps } from "react-router-dom";
 import { MdLogin } from "react-icons/md";
 import Modal from "../modal/Modal.tsx";
@@ -29,6 +31,9 @@ const Header: React.FC<Props> = (props) => {
       <div className={HeaderCSS.login} onClick={() => setIsModalOpen(true)}>
         <MdLogin /> <div className={HeaderCSS.loginText}>Login</div>
       </div>
+      <Link to={"/statistics"} className={HeaderCSS.companyName}>
+        <img className={HeaderCSS.logo} src={statistics} alt="logo" />
+      </Link>
       <Modal open={isModalOpen} setIsModalOpen={setIsModalOpen}>
         <Authentication />
       </Modal>
