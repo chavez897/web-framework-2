@@ -3,4 +3,5 @@ export const API_ENDPOINTS = {
   REGISTER: "/api/v1/register",
   LOGIN: "/api/v1/login",
   LOGOUT: "/api/v1/logout",
+  REVIEWS:"/api/v1/reviews"
 };
