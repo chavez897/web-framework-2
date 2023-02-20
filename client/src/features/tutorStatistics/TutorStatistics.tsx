@@ -81,14 +81,14 @@ const TutorStatistics = () => {
       {
         label: "Students",
         data: courses.map((course) => course.students),
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        backgroundColor: "rgba(0, 150, 255, 0.5)",
       },
     ],
   };
 
   return (
-    <Container>
-      <Paper>
+    <Container sx={{ height: "100vh" }}>
+      <Paper sx={{ py: 5, px: 5 }}>
         <Typography variant="h5" component="h3">
           Tutor Statistics
         </Typography>
@@ -98,7 +98,9 @@ const TutorStatistics = () => {
           Average student rating: {avgRating}
         </Typography>
         <Typography component="p">Total earnings: {earnings}</Typography>
-        <Bar options={options} data={data} />;
+        <Typography component="div" sx={{ py: 2, px: 20 }}>
+          <Bar options={options} data={data} />
+        </Typography>
       </Paper>
     </Container>
   );
