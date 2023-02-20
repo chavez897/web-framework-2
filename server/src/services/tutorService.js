@@ -5,7 +5,7 @@ export const getTutorsService = async (skill) => {
   const tutors = await Tutor.find({
       skills: { $regex: skill, $options: "i" },
     })
-    .sort({ lessonCost: 1 });
+    .sort({ hourlyCost: 1 });
   return tutors;
 };
 export const createNewTutorService = async (data) => {

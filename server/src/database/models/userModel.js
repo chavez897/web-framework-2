@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema(
     refreshToken: {
       type: String,
     },
-    isAdmin: {
+    isTutor: {
       type: Boolean,
       require: true,
       default: false,
@@ -33,7 +33,7 @@ const userSchema = mongoose.Schema(
     }
   },
   {
-    timestamp: true,
+    timestamps: true
   }
 );
 

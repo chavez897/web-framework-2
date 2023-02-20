@@ -1,5 +1,5 @@
-import { Review } from "../database/models/tutorModel.js";
 import Tutor from "../database/models/tutorModel.js";
+import Review from "../database/models/reviewModel.js";
 
 export const getReviewsService = async () => {
   const reviews = await Review.find({});

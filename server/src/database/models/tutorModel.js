@@ -1,41 +1,13 @@
 import mongoose from "mongoose";
 
-const reviewSchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    require: true,
-    ref: "User",
-  },
-  tutorId: {
-    type: mongoose.Schema.Types.ObjectId,
-    require: true,
-    ref: "Tutor",
-  },
-  rating: {
-    type: Number,
-    require: true,
-    default: 0,
-  },
-  review: {
-    type: String,
-    require: true,
-  }
-},{
-  timestamps:true
-});
-
 const tutorSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      require: true,
+    userId:{
+      type:mongoose.Schema.Types.ObjectId,
+      unique:true,
+      required:true,
+      ref:"User"
     },
-    email: {
-      type: String,
-      require: true,
-      unique: true,
-    },
-    picture: String,
     image: {
       type: String,
       require: true,
@@ -49,12 +21,12 @@ const tutorSchema = new mongoose.Schema(
       require: true,
     },
     skills: [{ type: String }],
-    lessonCost: {
+    hourlyRate: {
       type: Number,
       require: true,
       default: 0,
     },
-    countClasesGiven: {
+    numClasesGiven: {
       type: Number,
       require: true,
       default: 0,
@@ -83,7 +55,4 @@ tutorSchema.virtual("numReviews", {
 });
 
 const Tutor = mongoose.model("Tutor", tutorSchema);
-const Review = mongoose.model("Review", reviewSchema);
-
 export default Tutor;
-export { Review };

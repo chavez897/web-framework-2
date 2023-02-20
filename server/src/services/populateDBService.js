@@ -31,13 +31,11 @@ const tutorList = async () => {
   for (let i = 0; i < process.env.RANDOM_TUTORS_NUMBER; i++) {
     const randomSkills = generateRandomList(skills);
     tutors.push({
-      name: maleNames[i],
-      email: `${maleNames[i].toLowerCase().split(" ")[0]}@gmail.com`,
+      image: picturesList[i],
       description: lorem.generateSentences(5),
-      skills: randomSkills,
       spokenLanguages: randomLanguages(randomSkills),
-      lessonCost: getRandomInt(4, 100),
-      picture: picturesList[i],
+      skills: randomSkills,
+      hourlyRate: getRandomInt(16, 100),
     });
   }
   return tutors;
