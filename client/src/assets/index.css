@@ -44,7 +44,19 @@ Lightness is also a percentage value, 0% is black, and 100% is white. */
     margin: 0 auto;
     padding: 0 3rem;
     z-index: 10;
-    
+ 
   }
+
+.rti--container{
+    padding: 17px 13px;
+    background: #f1f8fc;
+    margin: 17px 0 0 0;
+    --rti-tag:#d3daded1;
+    width:100%;
+}
+.rti--input{
+    width: 100%;
+    background: none;
+}
 
 

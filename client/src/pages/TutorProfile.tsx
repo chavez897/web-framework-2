@@ -1,18 +1,81 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import { Avatar, Divider, Rating, Typography } from "@mui/material";
+import {
+  Avatar,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Divider,
+  Rating,
+  TextField,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { Stack } from "@mui/system";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import EmailIcon from "@mui/icons-material/Email";
 import StarIcon from "@mui/icons-material/Star";
 import Review from "../features/addReview/components/Review.tsx";
+import { useTheme } from "@mui/material/styles";
 
 export default function TutorProfile() {
   const { id } = useParams();
+
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const [rating, setRating] = useState(4);
+
   return (
     <>
+      <Dialog open={open} onClose={handleClose} fullScreen={fullScreen}>
+        <DialogTitle>Add a Review</DialogTitle>
+        <DialogContent>
+          <input
+            name="rating"
+            type="number"
+            value={rating}
+            hidden
+            readOnly
+          />
+          <Rating
+            name="simple-controlled"
+            value={rating}
+            precision={0.5}
+            onChange={(_, value) => {
+              setRating(value);
+            }}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="review"
+            label="Review"
+            name="review"
+            type="text"
+            multiline
+            rows={4}
+            fullWidth
+            variant="outlined"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Submit</Button>
+        </DialogActions>
+      </Dialog>
       <Container sx={{ mt: 3 }}>
         <Grid container spacing={2} sx={{ mb: 3 }}>
           <Grid item md={4}>
@@ -53,10 +116,10 @@ export default function TutorProfile() {
               Knows English, French
             </Typography>
             <Typography variant="body1" component="h2">
-              Cost: $4/hr
+              Cost: $ 4/hr
             </Typography>
             <Typography variant="body1" component="h2">
-              Number of class given: 5
+              Number of classes given: 5
             </Typography>
           </Grid>
         </Grid>
@@ -91,7 +154,9 @@ export default function TutorProfile() {
           </Grid>
 
           {/* Add a Review Component */}
-          <Button variant="contained" sx={{mt:1}}>Add a Review</Button>
+          <Button variant="contained" sx={{ mt: 1 }} onClick={handleClickOpen}>
+            Add a Review
+          </Button>
           {/* Review Component */}
           <Review />
           <Review />

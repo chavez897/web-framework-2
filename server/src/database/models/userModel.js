@@ -30,7 +30,7 @@ const userSchema = mongoose.Schema(
     updatedAt: {
       type: Date,
       default: Date.now,
-    },
+    }
   },
   {
     timestamp: true,

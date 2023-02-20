@@ -26,6 +26,8 @@ const Tutor: React.FC<TutorProps> = ({
   const containLanguage = tutor.spokenLanguages.some((language) =>
     languagesFilter.includes(language.toLowerCase())
   );
+
+
   if (
     (!languagesFilter.length || containLanguage == true) &&
     submittedText !== undefined &&
@@ -33,6 +35,7 @@ const Tutor: React.FC<TutorProps> = ({
       tutor.lessonCost >= priceFilter[0]) ||
       !priceFilter)
   )
+
     return (
       <div className={`${TutorCSS.card}`}>
         <div className={`${TutorCSS.leftSide}`}>

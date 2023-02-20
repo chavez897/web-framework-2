@@ -21,7 +21,7 @@ const Header: React.FC<Props> = (props) => {
       <div className={HeaderCSS.appTitle}>
         <Link to={"/"} className={HeaderCSS.companyName}>
           <img className={HeaderCSS.logo} src={logoImage} alt="logo" />
-          <h3 className={HeaderCSS.name}>Wise Paals</h3>
+          <h3 className={HeaderCSS.name}>Wise Pals</h3>
         </Link>
       </div>
       <div className={HeaderCSS.SearchBar}>{path != "/" && <SearchBar />}</div>

@@ -1,6 +1,16 @@
 import mongoose from "mongoose";
 
-const reviewSchema = mongoose.Schema({
+const reviewSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    require: true,
+    ref: "User",
+  },
+  tutorId: {
+    type: mongoose.Schema.Types.ObjectId,
+    require: true,
+    ref: "Tutor",
+  },
   rating: {
     type: Number,
     require: true,
@@ -9,21 +19,21 @@ const reviewSchema = mongoose.Schema({
   review: {
     type: String,
     require: true,
-  },
-  // user: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   require: true,
-  //   ref: "User",
-  // },
+  }
 },{
-  timestamp:true
+  timestamps:true
 });
 
-const teacherFilterSchema = mongoose.Schema(
+const tutorSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       require: true,
+    },
+    email: {
+      type: String,
+      require: true,
+      unique: true,
     },
     picture: String,
     image: {
@@ -39,17 +49,6 @@ const teacherFilterSchema = mongoose.Schema(
       require: true,
     },
     skills: [{ type: String }],
-    reviews: [reviewSchema],
-    rating: {
-      type: Number,
-      require: true,
-      default: 0,
-    },
-    numReviews: {
-      type: Number,
-      require: true,
-      default: 0,
-    },
     lessonCost: {
       type: Number,
       require: true,
@@ -62,12 +61,29 @@ const teacherFilterSchema = mongoose.Schema(
     },
   },
   {
-    timestamp: true,
-  }
+    timestamps: true
+  },
+  {
+    toJSON: { virtuals: true }, 
+    toObject: { virtuals: true }
+  },
 );
 
-const teacherFilter = mongoose.model("TeacherFilter", teacherFilterSchema);
-const Review = new mongoose.model("Review", reviewSchema);
+tutorSchema.virtual("reviews", {
+  ref: "Review",
+  localField: "_id",
+  foreignField: "tutorId",
+});
 
-export default teacherFilter;
-export {Review};
+tutorSchema.virtual("numReviews", {
+  ref: "Review",
+  localField: "_id",
+  foreignField: "tutorId",
+  count: true
+});
+
+const Tutor = mongoose.model("Tutor", tutorSchema);
+const Review = mongoose.model("Review", reviewSchema);
+
+export default Tutor;
+export { Review };

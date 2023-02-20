@@ -1,14 +1,14 @@
-import teacherFilterModel from "../database/models/tutorModel.js";
 import { maleNames, skills, languages } from "../services/utils/randomLists.js";
 import { LoremIpsum } from "lorem-ipsum";
 import { unsplashImages } from "../services/utils/unsplashImages.js";
+import Tutor from "../database/models/tutorModel.js"
 
 export const postManyTutorsService = async () => {
   const tutors = await tutorList();
-  await teacherFilterModel.deleteMany({}).then((error) => {
+  await Tutor.deleteMany({}).then((error) => {
     console.log("Deleted all previous tutors");
   });
-  await teacherFilterModel.insertMany(tutors).then(() => {
+  await Tutor.insertMany(tutors).then(() => {
     console.log("New random tutors added");
   });
   return `Previous tutors where deleted and ${process.env.RANDOM_TUTORS_NUMBER} random tutors where added`;
@@ -32,6 +32,7 @@ const tutorList = async () => {
     const randomSkills = generateRandomList(skills);
     tutors.push({
       name: maleNames[i],
+      email: `${maleNames[i].toLowerCase().split(" ")[0]}@gmail.com`,
       description: lorem.generateSentences(5),
       skills: randomSkills,
       spokenLanguages: randomLanguages(randomSkills),

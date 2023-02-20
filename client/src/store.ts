@@ -8,5 +8,5 @@ interface RootState {
 }
 
 export const store = configureStore<RootState>({
-  reducer: { searchBar, newTutor },
+  reducer: { searchBar, newTutor}
 });

@@ -1,14 +1,14 @@
-import teacherFilterModel from "../database/models/tutorModel.js";
+
+import Tutor from "../database/models/tutorModel.js";
 
 export const getTutorsService = async (skill) => {
-  const tutors = await teacherFilterModel
-    .find({
+  const tutors = await Tutor.find({
       skills: { $regex: skill, $options: "i" },
     })
     .sort({ lessonCost: 1 });
   return tutors;
 };
-export const createNewTutorService = async (tutor) => {
-  tutor = await new teacherFilterModel(tutor).save();
+export const createNewTutorService = async (data) => {
+  tutor = await new Tutor(data).save();
   return tutor;
 };
