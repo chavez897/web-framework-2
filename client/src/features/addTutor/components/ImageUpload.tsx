@@ -1,32 +1,58 @@
-import { Button, Card, CardContent, FormControl, FormHelperText, Typography } from '@mui/material';
-import { Box } from '@mui/system';
-import React from 'react';
-import {useDropzone} from 'react-dropzone';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import {
+  Avatar,
+  Button,
+  Card,
+  CardContent,
+  FormControl,
+  FormHelperText,
+  Typography,
+} from "@mui/material";
+import { Box } from "@mui/system";
+import React, { useState } from "react";
+import { useDropzone } from "react-dropzone";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
-function ImageUpload(props) {
-  const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
-  
-  const files = acceptedFiles.map(file => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes
-    </li>
+function ImageUpload() {
+  const [files, setFiles] = useState([]);
+  const [customError, setCustomError] = useState([]);
+  const maxFiles = 1;
+  const { acceptedFiles, fileRejections, getRootProps, getInputProps } =
+    useDropzone({
+      accept: {
+        "image/*": [".png", ".jpeg", ".jpg"],
+      },
+      maxFiles,
+      onDrop: (acceptedFiles) => {
+        setFiles(
+          acceptedFiles.map((file) =>
+            Object.assign(file, {
+              preview: URL.createObjectURL(file),
+            })
+          )
+        );
+      },
+    });
+
+  const thumbs = files.map((file) => (
+    <Avatar
+      // alt={file.preview}
+      src={file.preview}
+      sx={{ width: 156, height: 156, borderRadius: "2%" }}
+      onLoad={() => {
+        URL.revokeObjectURL(file.preview);
+      }}
+    />
   ));
 
   return (
-    <Card>
+    <Card sx={{ width: "100%", backgroundColor: "#f1f8fc", m:0 }} variant="outlined">
       <CardContent>
-        <Typography variant="body1" component="div">
-          Upload Image
-        </Typography>
         <Box
           {...getRootProps()}
           sx={{
             border: 1,
             borderRadius: 1,
             borderColor: "rgba(0, 0, 0, 0.23)",
-            mt: 4,
-            mb: 5,
             paddingY: 3,
             paddingX: 1,
             "&:hover": {
@@ -50,38 +76,47 @@ function ImageUpload(props) {
             <input {...getInputProps()} />
             <CloudUploadIcon sx={{ fontSize: 40 }} color="primary" />
             <Typography
+              variant="h6"
+              textAlign="center"
+              color="text.primary"
+              sx={{ paddingY: 1 }}
+            >
+              Upload Profile Image
+            </Typography>
+            <Typography
               variant="caption"
               textAlign="center"
               color="text.primary"
               sx={{ paddingY: 1 }}
             >
-              Drag and drop some files here, or click to select files
+              Drag and drop an image, or click to select image
             </Typography>
-            
-            {/* <FormHelperText error={true}>
+
+            <FormHelperText error={true}>
               {fileRejections[0]?.errors[0]?.message.includes("bytes")
                 ? "File is larger than 600 KB"
                 : fileRejections[0]?.errors[0]?.message}
             </FormHelperText>
-            <FormHelperText error={true}>{customError}</FormHelperText> */}
+            <FormHelperText error={true}>{customError}</FormHelperText>
           </FormControl>
-          <Box
-            component="ul"
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexWrap: "wrap",
-              listStyle: "none",
-              p: 0.5,
-              m: 0,
-            }}
-          >
-            {files}
-          </Box>
+        </Box>
+        <Box
+          component="ul"
+          sx={{
+            display: "flex",
+            justifyContent: "left",
+            flexWrap: "wrap",
+            listStyle: "none",
+            p: 0.5,
+            pt: 2,
+            m: 0,
+          }}
+        >
+          {thumbs}
         </Box>
       </CardContent>
     </Card>
   );
-};
+}
 
-export default ImageUpload
+export default ImageUpload;

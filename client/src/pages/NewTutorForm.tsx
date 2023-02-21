@@ -84,7 +84,7 @@ const NewTutorForm = () => {
               <TextField
                 id="cost"
                 name="cost"
-                label="Lesson cost/hr"
+                label="Hourly Cost"
                 variant="outlined"
                 fullWidth
                 sx={{ margin: "17px 0 0 0" }}
