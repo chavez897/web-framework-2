@@ -45,7 +45,10 @@ function ImageUpload() {
   ));
 
   return (
-    <Card sx={{ width: "100%", backgroundColor: "#f1f8fc", m:0 }} variant="outlined">
+    <Card
+      sx={{ width: "100%", backgroundColor: "#f1f8fc", m: 0 }}
+      variant="outlined"
+    >
       <CardContent>
         <Box
           {...getRootProps()}
