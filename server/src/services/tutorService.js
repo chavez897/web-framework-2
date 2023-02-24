@@ -1,11 +1,12 @@
-
 import Tutor from "../database/models/tutorModel.js";
 
 export const getTutorsService = async (skill) => {
   const tutors = await Tutor.find({
-      skills: { $regex: skill, $options: "i" },
-    })
-    .sort({ hourlyCost: 1 });
+    skills: { $regex: skill, $options: "i" },
+  }).sort({ hourlyCost: 1 });
+
+  console.log("tutors:", tutors);
+
   return tutors;
 };
 export const createNewTutorService = async (data) => {
