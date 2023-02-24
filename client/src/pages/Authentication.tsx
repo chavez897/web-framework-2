@@ -16,7 +16,7 @@ const Authentication = () => {
 
   const toggleLoginRegister = () => {
     setIsLogin((isLogin) => {
-      setIsLogin(!isLogin);
+      return !isLogin;
     });
   };
 
