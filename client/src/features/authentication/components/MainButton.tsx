@@ -8,7 +8,7 @@ interface MainButtonProps {
 const MainButton: React.FC<MainButtonProps> = ({ text }) => {
   return (
     <div className={`${LoginCSS.inputField} ${LoginCSS.button}`}>
-      <input type="button" value={text} />
+      <input type="submit" value={text} />
     </div>
   );
 };

@@ -94,7 +94,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 1.5rem;
 }
 
 .checkBoxContainer {
@@ -148,4 +148,22 @@
 }
 
 .signUp {
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-bottom: -1rem;
+}
+
+.success {
+  color: green;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-bottom: -1rem;
+}
+
+.hide {
+  display: none;
 }
