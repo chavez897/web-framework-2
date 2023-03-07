@@ -12,6 +12,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { Button } from "@mui/material";
 import { useParams } from "react-router-dom";
 import axios from "../lib/axios.ts";
+import Swal from "sweetalert2";
 
 const ContactTutor = () => {
   const { tutor } = useParams();
@@ -68,6 +69,12 @@ const ContactTutor = () => {
       setDescription("");
       setLanguage("");
       setSkill("");
+      Swal.fire({
+        title: "Success!",
+        text: "You have contacted the tutor!",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
     });
   };
 

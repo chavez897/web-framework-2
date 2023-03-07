@@ -33,3 +33,34 @@ export const getTutorByUserService = async (id) => {
 
   return tutor;
 };
+
+export const updateTutorService = async (
+  id,
+  name,
+  email,
+  skills,
+  spokenLanguages,
+  hourlyRate,
+  description
+) => {
+  try {
+    const user = Tutor.findOneAndUpdate(
+      { _id: id },
+      {
+        name: name,
+        email: email,
+        skills: skills,
+        spokenLanguages: spokenLanguages,
+        hourlyRate: hourlyRate,
+        description: description,
+      },
+      { new: true }
+    );
+    if (user) {
+      return user;
+    }
+  } catch (error) {
+    console.log("service");
+    throw new Error(error.message);
+  }
+};

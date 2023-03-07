@@ -8,6 +8,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/material";
 import { Button } from "@mui/material";
+import Swal from "sweetalert2";
 
 const UserCard = (props: any) => {
   const [name, setName] = useState(props.name);
@@ -31,12 +32,26 @@ const UserCard = (props: any) => {
   };
 
   const handleSubmit = () => {
-    console.log({
-      name: name,
-      lastName: lastName,
-      email: email,
-      phone: phone,
+    fetch("http://localhost:5001/api/v1/user/", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        lastName: lastName,
+        email: email,
+        phone: phone,
+      }),
+    }).then(() => {
+      Swal.fire({
+        title: "Success!",
+        text: "You have updated your profile",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
     });
+    console.log();
   };
 
   return (

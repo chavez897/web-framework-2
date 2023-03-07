@@ -3,6 +3,7 @@ import {
   createNewTutorService,
   getTutorService,
   getTutorByUserService,
+  updateTutorService,
 } from "../services/tutorService.js";
 
 import multer from "multer";
@@ -76,5 +77,42 @@ export const createNewTutor = async (req, res) => {
     });
   } catch (error) {
     res.status(409).json({ message: error.message });
+  }
+};
+
+export const updateTutor = async (req, res) => {
+  const { id, name, email, skills, spokenLanguages, hourlyRate, description } =
+    req.body;
+  if (
+    !id ||
+    !name ||
+    !email ||
+    !skills ||
+    !spokenLanguages ||
+    !hourlyRate ||
+    !description
+  ) {
+    res.status(400).json({ message: "Missing fields" });
+    return;
+  }
+  try {
+    const user = await updateTutorService(
+      id,
+      email,
+      name,
+      skills,
+      spokenLanguages,
+      hourlyRate,
+      description
+    );
+    if (user) {
+      res.status(200).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+      });
+    }
+  } catch (error) {
+    res.status(503).json({ message: error.message });
   }
 };
