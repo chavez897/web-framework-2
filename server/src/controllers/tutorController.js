@@ -2,6 +2,7 @@ import {
   getTutorsService,
   createNewTutorService,
   getTutorService,
+  getTutorByUserService,
 } from "../services/tutorService.js";
 
 import multer from "multer";
@@ -10,13 +11,17 @@ import path from "path";
 let uniqueImageName;
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads')
+    cb(null, "./uploads");
   },
   filename: function (req, file, cb) {
-    uniqueImageName = Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname)
-    cb(null, uniqueImageName)
-  }
-})
+    uniqueImageName =
+      Date.now() +
+      "-" +
+      Math.round(Math.random() * 1e9) +
+      path.extname(file.originalname);
+    cb(null, uniqueImageName);
+  },
+});
 
 const upload = multer({ storage: storage });
 
@@ -38,6 +43,16 @@ export const getTutor = async (req, res) => {
   }
 };
 
+export const getByUser = async (req, res) => {
+  try {
+    const { id } = req.query;
+    console.log("asdf");
+    res.status(200).json(await getTutorByUserService(id));
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 export const createNewTutor = async (req, res) => {
   try {
     // await body('userId').isMongoId().withMessage('Invalid user ID').run(req);
@@ -49,11 +64,14 @@ export const createNewTutor = async (req, res) => {
     // if (!errors.isEmpty()) {
     //   return res.status(400).json({ errors: errors.array() });
     // }
-    upload.single('image')(req, res, async (err) => {
+    upload.single("image")(req, res, async (err) => {
       if (err) {
         return res.status(400).json({ message: err.message });
       }
-      const tutor = await createNewTutorService({ profile: req.body, file: uniqueImageName });
+      const tutor = await createNewTutorService({
+        profile: req.body,
+        file: uniqueImageName,
+      });
       res.status(201).json(tutor);
     });
   } catch (error) {

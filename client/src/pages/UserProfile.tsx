@@ -26,12 +26,12 @@ const UserProfile = () => {
         setEmail(res.data.email);
         setPhone(res.data.phone);
         setIsTutor(res.data.isTutor);
-        if (res.data.isTutor) {
+        if (isTutor) {
         } else {
           setIsLoading(false);
         }
       });
-  }, []);
+  }, [isTutor]);
   if (isLaoding) {
     return <Container></Container>;
   } else {

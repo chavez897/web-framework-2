@@ -25,3 +25,11 @@ export const getTutorService = async (id) => {
   const tutor = await Tutor.findOne({ _id: id });
   return tutor;
 };
+
+export const getTutorByUserService = async (id) => {
+  const tutor = await Tutor.findOne({
+    userId: id,
+  });
+
+  return tutor;
+};
