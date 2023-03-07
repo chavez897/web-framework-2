@@ -12,6 +12,7 @@ import {
 import { TagsInput } from "react-tag-input-component";
 import ImageUpload from "../addTutor/components/ImageUpload.tsx";
 import axios from "../../lib/axios.ts";
+import Swal from "sweetalert2";
 
 const TutorCard = () => {
   const userID = "63ee8670020ff35a7b716eb0";
@@ -22,6 +23,7 @@ const TutorCard = () => {
   const [email, setEmail] = useState("");
   const [description, setDescription] = useState("");
   const [hourlyCost, setHourlyCost] = useState("");
+  const [id, setId] = useState("");
 
   useEffect(() => {
     axios
@@ -31,6 +33,7 @@ const TutorCard = () => {
         },
       })
       .then((res) => {
+        setId(res.data._id);
         setName(res.data.name);
         setEmail(res.data.email);
         setSkills(res.data.skills);
@@ -54,13 +57,25 @@ const TutorCard = () => {
   };
 
   const handleSubmit = () => {
-    console.log({
-      name: name,
-      email: email,
-      skills: skills,
-      languages: languages,
-      hourlyRate: hourlyCost,
-      description: description,
+    fetch("http://localhost:5001/api/v1/tutors/", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: id,
+        skills: skills,
+        spokenLanguages: languages,
+        hourlyRate: hourlyCost,
+        description: description,
+      }),
+    }).then((response) => {
+      Swal.fire({
+        title: "Success!",
+        text: "You have contacted the tutor!",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
     });
   };
 
@@ -75,31 +90,6 @@ const TutorCard = () => {
               </Typography>
             </Grid>
             <Grid item md={6}>
-              <Grid item md={12}>
-                <TextField
-                  id="Name"
-                  name="name"
-                  label="Name"
-                  variant="outlined"
-                  fullWidth
-                  value={name}
-                  onChange={handleNameChange}
-                  sx={{ margin: "17px 0 0 0" }}
-                />
-              </Grid>
-              <Grid item md={12}>
-                <TextField
-                  id="email"
-                  type="email"
-                  name="email"
-                  label="Email"
-                  variant="outlined"
-                  value={email}
-                  onChange={handleEmailChange}
-                  sx={{ margin: "17px 0 0 0" }}
-                  fullWidth
-                />
-              </Grid>
               <Grid item md={12}>
                 <TagsInput
                   value={skills}

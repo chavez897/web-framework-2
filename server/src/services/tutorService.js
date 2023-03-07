@@ -36,8 +36,6 @@ export const getTutorByUserService = async (id) => {
 
 export const updateTutorService = async (
   id,
-  name,
-  email,
   skills,
   spokenLanguages,
   hourlyRate,
@@ -47,8 +45,6 @@ export const updateTutorService = async (
     const user = Tutor.findOneAndUpdate(
       { _id: id },
       {
-        name: name,
-        email: email,
         skills: skills,
         spokenLanguages: spokenLanguages,
         hourlyRate: hourlyRate,
@@ -60,7 +56,6 @@ export const updateTutorService = async (
       return user;
     }
   } catch (error) {
-    console.log("service");
     throw new Error(error.message);
   }
 };

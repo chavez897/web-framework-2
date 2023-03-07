@@ -81,25 +81,14 @@ export const createNewTutor = async (req, res) => {
 };
 
 export const updateTutor = async (req, res) => {
-  const { id, name, email, skills, spokenLanguages, hourlyRate, description } =
-    req.body;
-  if (
-    !id ||
-    !name ||
-    !email ||
-    !skills ||
-    !spokenLanguages ||
-    !hourlyRate ||
-    !description
-  ) {
+  const { id, skills, spokenLanguages, hourlyRate, description } = req.body;
+  if (!id || !skills || !spokenLanguages || !hourlyRate || !description) {
     res.status(400).json({ message: "Missing fields" });
     return;
   }
   try {
     const user = await updateTutorService(
       id,
-      email,
-      name,
       skills,
       spokenLanguages,
       hourlyRate,
@@ -108,8 +97,6 @@ export const updateTutor = async (req, res) => {
     if (user) {
       res.status(200).json({
         _id: user._id,
-        name: user.name,
-        email: user.email,
       });
     }
   } catch (error) {

@@ -76,7 +76,7 @@ const UserCard = (props: any) => {
               </FormControl>
             </Grid>
             <Grid item xs={12} md={6}>
-              <FormControl fullWidth sx={{ mr: 5, my: 0 }}>
+              <FormControl fullWidth sx={{ mr: 5, my: 0 }} disabled={true}>
                 <InputLabel htmlFor="outlined-adornment-amount">
                   Last Name
                 </InputLabel>
@@ -85,6 +85,7 @@ const UserCard = (props: any) => {
                   label="Email"
                   value={lastName}
                   onChange={handleLastNameChange}
+                  disabled={false}
                 />
               </FormControl>
             </Grid>
@@ -97,6 +98,7 @@ const UserCard = (props: any) => {
                   id="Email"
                   label="Email"
                   value={email}
+                  disabled={true}
                   onChange={handleEmailChange}
                 />
               </FormControl>
@@ -120,6 +122,12 @@ const UserCard = (props: any) => {
             sx={{ mr: 5, my: 1, width: "100%" }}
             variant="contained"
             onClick={handleSubmit}
+            disabled={
+              name.length <= 0 ||
+              lastName.length <= 0 ||
+              email.length <= 0 ||
+              phone.length <= 0
+            }
           >
             Update
           </Button>
