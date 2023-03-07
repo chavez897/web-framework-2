@@ -26,12 +26,9 @@ const UserProfile = () => {
         setEmail(res.data.email);
         setPhone(res.data.phone);
         setIsTutor(res.data.isTutor);
-        if (isTutor) {
-        } else {
-          setIsLoading(false);
-        }
+        setIsLoading(false);
       });
-  }, [isTutor]);
+  }, []);
   if (isLaoding) {
     return <Container></Container>;
   } else {
@@ -45,9 +42,13 @@ const UserProfile = () => {
             phone={phone}
           />
         </Box>
-        <Box my={5}>
-          <TutorCard />
-        </Box>
+        {isTutor ? (
+          <Box my={5}>
+            <TutorCard />
+          </Box>
+        ) : (
+          <div></div>
+        )}
       </Container>
     );
   }
