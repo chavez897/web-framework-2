@@ -10,20 +10,20 @@ import {
   CardContent,
 } from "@mui/material";
 import { TagsInput } from "react-tag-input-component";
-import ImageUpload from "../addTutor/components/ImageUpload.tsx";
+import ImageUpload from "./components/ImageUpload.tsx";
 import axios from "../../lib/axios.ts";
 import Swal from "sweetalert2";
+import { FileWithPath } from "react-dropzone";
 
 const TutorCard = () => {
   const userID = "63ee8670020ff35a7b716eb0";
-  const [picture, setPicture] = useState<string | undefined>();
+  const [picture, setPicture] = useState("");
   const [skills, setSkills] = useState([]);
   const [languages, setLanguages] = useState([]);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [description, setDescription] = useState("");
   const [hourlyCost, setHourlyCost] = useState("");
   const [id, setId] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -34,27 +34,35 @@ const TutorCard = () => {
       })
       .then((res) => {
         setId(res.data._id);
-        setName(res.data.name);
-        setEmail(res.data.email);
         setSkills(res.data.skills);
         setLanguages(res.data.spokenLanguages);
         setHourlyCost(res.data.hourlyRate);
         setDescription(res.data.description);
+        setPicture("http://localhost:5001/img/" + res.data.image);
+        setIsLoading(false);
       });
   }, []);
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
   const handleHourlyCostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setHourlyCost(e.target.value);
   };
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDescription(e.target.value);
   };
+
+  function handleAcceptedFiles(acceptedFiles: FileWithPath[]) {
+    var bodyFormData = new FormData();
+    bodyFormData.append("id", id);
+    bodyFormData.append("image", acceptedFiles[0]);
+    axios({
+      method: "PUT",
+      url: "http://localhost:5001/api/v1/tutors/image",
+      data: bodyFormData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then(function (response) {})
+      .catch(function (response) {});
+  }
 
   const handleSubmit = () => {
     fetch("http://localhost:5001/api/v1/tutors/", {
@@ -69,14 +77,27 @@ const TutorCard = () => {
         hourlyRate: hourlyCost,
         description: description,
       }),
-    }).then((response) => {
-      Swal.fire({
-        title: "Success!",
-        text: "You have contacted the tutor!",
-        icon: "success",
-        confirmButtonText: "OK",
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          Swal.fire({
+            title: "Success!",
+            text: "You have updated your data!",
+            icon: "success",
+            confirmButtonText: "OK",
+          });
+        } else {
+          Swal.fire({
+            title: "Error!",
+            text: "Verify the fields",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    });
   };
 
   return (
@@ -113,6 +134,7 @@ const TutorCard = () => {
                     name="cost"
                     label="Hourly Cost"
                     variant="outlined"
+                    type="number"
                     fullWidth
                     value={hourlyCost}
                     onChange={handleHourlyCostChange}
@@ -127,7 +149,14 @@ const TutorCard = () => {
               </Grid>
             </Grid>
             <Grid item md={6}>
-              <ImageUpload />
+              {!isLoading ? (
+                <ImageUpload
+                  onAcceptedFiles={handleAcceptedFiles}
+                  preview={picture}
+                />
+              ) : (
+                <div></div>
+              )}
             </Grid>
             <Grid item md={12}>
               <TextField
@@ -148,6 +177,12 @@ const TutorCard = () => {
               sx={{ mr: 0, my: 1, width: "100%" }}
               variant="contained"
               onClick={handleSubmit}
+              disabled={
+                skills.length <= 0 ||
+                languages.length <= 0 ||
+                hourlyCost.length <= 0 ||
+                description.length <= 0
+              }
             >
               Update
             </Button>

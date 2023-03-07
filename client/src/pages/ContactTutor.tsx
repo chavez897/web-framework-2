@@ -65,16 +65,25 @@ const ContactTutor = () => {
         tutor: tutor,
       }),
     }).then((response) => {
-      setTitle("");
-      setDescription("");
-      setLanguage("");
-      setSkill("");
-      Swal.fire({
-        title: "Success!",
-        text: "You have contacted the tutor!",
-        icon: "success",
-        confirmButtonText: "OK",
-      });
+      if (response.status === 200) {
+        setTitle("");
+        setDescription("");
+        setLanguage("");
+        setSkill("");
+        Swal.fire({
+          title: "Success!",
+          text: "You have contacted the tutor!",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "Verify the fields",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
     });
   };
 

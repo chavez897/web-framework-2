@@ -43,15 +43,23 @@ const UserCard = (props: any) => {
         email: email,
         phone: phone,
       }),
-    }).then(() => {
-      Swal.fire({
-        title: "Success!",
-        text: "You have updated your profile",
-        icon: "success",
-        confirmButtonText: "OK",
-      });
+    }).then((res) => {
+      if (res.status === 200) {
+        Swal.fire({
+          title: "Success!",
+          text: "You have updated your profile",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "Verify the fields",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
     });
-    console.log();
   };
 
   return (

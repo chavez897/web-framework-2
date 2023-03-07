@@ -17,7 +17,6 @@ const contactSchema = mongoose.Schema(
     description: {
       type: String,
       require: true,
-      unique: true,
     },
     user: {
       type: String,

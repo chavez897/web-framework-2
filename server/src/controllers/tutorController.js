@@ -48,7 +48,6 @@ export const getTutor = async (req, res) => {
 export const getByUser = async (req, res) => {
   try {
     const { id } = req.query;
-    console.log("asdf");
     res.status(200).json(await getTutorByUserService(id));
   } catch (error) {
     res.status(404).json({ message: error.message });
