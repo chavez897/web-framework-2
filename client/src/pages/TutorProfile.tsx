@@ -18,7 +18,7 @@ import { Stack } from "@mui/system";
 import Button from "@mui/material/Button";
 import EmailIcon from "@mui/icons-material/Email";
 import StarIcon from "@mui/icons-material/Star";
-import Review from "../features/addReview/components/Review.tsx";
+import Review from "../features/addReview/components/Review";
 import { useTheme } from "@mui/material/styles";
 
 export default function TutorProfile() {
@@ -43,13 +43,7 @@ export default function TutorProfile() {
       <Dialog open={open} onClose={handleClose} fullScreen={fullScreen}>
         <DialogTitle>Add a Review</DialogTitle>
         <DialogContent>
-          <input
-            name="rating"
-            type="number"
-            value={rating}
-            hidden
-            readOnly
-          />
+          <input name="rating" type="number" value={rating} hidden readOnly />
           <Rating
             name="simple-controlled"
             value={rating}

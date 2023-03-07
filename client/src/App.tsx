@@ -1,11 +1,11 @@
 import React from "react";
-import FilterTutors from "./pages/FilterTutors.tsx";
-import NewTutorForm from "./pages/NewTutorForm.tsx";
+import FilterTutors from "./pages/FilterTutors";
+import NewTutorForm from "./pages/NewTutorForm";
 import { Routes, Route } from "react-router-dom";
-import Header from "./components/header/Header.tsx";
-import Footer from "./components/footer/Footer.tsx";
-import TutorStatistics from "./features/tutorStatistics/TutorStatistics.tsx";
-import LandingPage from "./pages/LandingPage.tsx";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
+import TutorStatistics from "./features/tutorStatistics/TutorStatistics";
+import LandingPage from "./pages/LandingPage";
 import AppCSS from "./assets/App.module.css";
 import blueShape from "./assets/blueShape.png";
 import "./assets/index.css";
@@ -26,7 +26,7 @@ const App: React.FC<Props> = () => {
           <Route path="/" element={<LandingPage />} />
           <Route path="/tutors/:skill" element={<FilterTutors />} />
           <Route path="/addTutor" element={<NewTutorForm />} />
-          <Route path="/tutorProfile/:id" element={<TutorProfile/>} />
+          <Route path="/tutorProfile/:id" element={<TutorProfile />} />
           <Route path="/statistics" element={<TutorStatistics />} />
           <Route path="/contactTutor/:tutor" element={<ContactTutor />} />
           <Route path="/userProfile" element={<UserProfile />} />

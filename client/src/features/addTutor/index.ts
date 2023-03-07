@@ -1,11 +1,11 @@
 import { NewTutor, NewTutorRequestStatus } from "./types/newTutor";
 import { Action } from "@reduxjs/toolkit";
-import { addTutorService as addTutor } from "./services/addTutor.ts";
+import { addTutorService as addTutor } from "./services/addTutor";
 import newTutorReducerFromSlice, {
   getNewTutor as getNewTutorFromSlice,
   getNewTutorRequestStatus as getNewTutorRequestStatusFromSlice,
   getNewTutorRequestError as getNewTutorRequestErrorFromSlice,
-} from "./store/newTutorSlice.ts";
+} from "./store/newTutorSlice";
 
 export const getNewTutor = (state: NewTutor): NewTutor =>
   getNewTutorFromSlice(state);

@@ -4,11 +4,11 @@ import {
   searchCriteriaChanged,
   textSubmitted,
   getCurrentText,
-} from "../store/searchBarSlice.ts";
+} from "../store/searchBarSlice";
 import SearchBarCSS from "../assets/SearchBar.module.css";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
-import fetchTeachers from "../../../services/fetchTeachersService.ts";
+import fetchTeachers from "../../../services/fetchTeachersService";
 
 const SearchBar = () => {
   const dispatch = useDispatch();

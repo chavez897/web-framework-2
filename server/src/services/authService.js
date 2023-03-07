@@ -17,7 +17,12 @@ export const handleLoginService = async (email, password) => {
   }
   //Generate access token
   const accessToken = jwt.sign(
-    { email: userExists.email },
+    {
+      UserInfo: {
+        email: userExists.email,
+        roles: userExists.roles,
+      },
+    },
     process.env.ACCESS_TOKEN_SECRET,
     {
       expiresIn: process.env.ACCESS_TOKEN_LIFE,

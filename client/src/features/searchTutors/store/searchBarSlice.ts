@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import fetchTeachers from "../../../services/fetchTeachersService.ts";
+import fetchTeachers from "../../../services/fetchTeachersService";
 
 interface SearchBarState {
   currentText: string;

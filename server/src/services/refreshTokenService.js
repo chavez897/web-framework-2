@@ -16,7 +16,12 @@ export const refreshTokenService = async (refreshToken) => {
   }
 
   const accessToken = jwt.sign(
-    { email: user.email },
+    {
+      UserInfo: {
+        email: user.email,
+        roles: Object.values(user.roles),
+      },
+    },
     process.env.ACCESS_TOKEN_SECRET,
     { expiresIn: process.env.ACCESS_TOKEN_LIFE }
   );

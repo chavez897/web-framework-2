@@ -1,6 +1,6 @@
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { addTutorService } from "../services/addTutor.ts";
+import { addTutorService } from "../services/addTutor";
 
 interface newTutorState {
   tutor: any;

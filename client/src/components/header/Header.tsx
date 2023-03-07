@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import HeaderCSS from "../../assets/Header.module.css";
 
-import SearchBar from "../../features/searchTutors/components/SearchBar.tsx";
+import SearchBar from "../../features/searchTutors/components/SearchBar";
 import logoImage from "../../assets/logo.png";
 import statistics from "../../assets/statistics.png";
 
 import { useLocation, RouteComponentProps } from "react-router-dom";
 import { MdLogin } from "react-icons/md";
-import Modal from "../modal/Modal.tsx";
-import Authentication from "../../pages/Authentication.tsx";
+import Modal from "../modal/Modal";
+import Authentication from "../../pages/Authentication";
 
 interface Props extends RouteComponentProps {}
 

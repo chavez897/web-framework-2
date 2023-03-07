@@ -1,8 +1,8 @@
 import React from "react";
 
 import FilterBarCSS from "../../assets/FilterBar.module.css";
-import LanguagesFilter from "./LanguagesFilter.tsx";
-import PriceSlider from "./PriceSlider.tsx";
+import LanguagesFilter from "./LanguagesFilter";
+import PriceSlider from "./PriceSlider";
 
 interface Props {
   tutorItems: Array<{

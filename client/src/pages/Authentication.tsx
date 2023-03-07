@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 import LoginCSS from "../assets/Login.module.css";
-import Registration from "../features/authentication/components/Registration.tsx";
-import Login from "../features/authentication/components/Login.tsx";
+import Registration from "../features/authentication/components/Registration";
+import Login from "../features/authentication/components/Login";
 
 const Authentication = () => {
   const [pwFieldType, setPwFieldType] = useState<string>("password");
@@ -16,7 +16,7 @@ const Authentication = () => {
 
   const toggleLoginRegister = () => {
     setIsLogin((isLogin) => {
-      setIsLogin(!isLogin);
+      return !isLogin;
     });
   };
 

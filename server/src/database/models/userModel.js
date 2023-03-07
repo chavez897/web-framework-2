@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import roles from "../../config/rolesList.js";
 
 const userSchema = mongoose.Schema(
   {
@@ -22,10 +23,18 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       require: true,
       default: false,
-    }
+    },
+    roles: {
+      User: {
+        type: Number,
+        default: roles.user,
+      },
+      Tutor: Number,
+      Admin: Number,
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 
