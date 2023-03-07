@@ -11,6 +11,7 @@ const UserProfile = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [isTutor, setIsTutor] = useState(false);
+  const [isLaoding, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -25,18 +26,31 @@ const UserProfile = () => {
         setEmail(res.data.email);
         setPhone(res.data.phone);
         setIsTutor(res.data.isTutor);
+        if (res.data.isTutor) {
+        } else {
+          setIsLoading(false);
+        }
       });
   }, []);
-  return (
-    <Container>
-      <Box my={5}>
-        <UserCard name={name} lastName={lastName} email={email} phone={phone} />
-      </Box>
-      <Box my={5}>
-        <TutorCard />
-      </Box>
-    </Container>
-  );
+  if (isLaoding) {
+    return <Container></Container>;
+  } else {
+    return (
+      <Container>
+        <Box my={5}>
+          <UserCard
+            name={name}
+            lastName={lastName}
+            email={email}
+            phone={phone}
+          />
+        </Box>
+        <Box my={5}>
+          <TutorCard />
+        </Box>
+      </Container>
+    );
+  }
 };
 
 export default UserProfile;
