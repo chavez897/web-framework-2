@@ -4,6 +4,7 @@ import {
   getTutorService,
   getTutorByUserService,
   updateTutorService,
+  updateImageService,
 } from "../services/tutorService.js";
 
 import multer from "multer";
@@ -101,5 +102,23 @@ export const updateTutor = async (req, res) => {
     }
   } catch (error) {
     res.status(503).json({ message: error.message });
+  }
+};
+
+export const updateImage = async (req, res) => {
+  try {
+    const { id } = req.body;
+    upload.single("image")(req, res, async (err) => {
+      if (err) {
+        return res.status(400).json({ message: err.message });
+      }
+      const tutor = await updateImageService({
+        id: id,
+        file: uniqueImageName,
+      });
+      res.status(200).json(tutor);
+    });
+  } catch (error) {
+    res.status(409).json({ message: error.message });
   }
 };

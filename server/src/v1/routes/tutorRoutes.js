@@ -5,6 +5,7 @@ import {
   getTutor,
   getByUser,
   updateTutor,
+  updateImage,
 } from "../../controllers/tutorController.js";
 import { verifyJWT } from "../../middlewares/verifyJWT.js";
 import apicache from "apicache";
@@ -20,6 +21,7 @@ router
   .get("/byId", getTutor)
   .get("/byUser", getByUser)
   .put("/", updateTutor)
+  .put("/image", updateImage)
   //TODO: Add the verifyJWT middleware to the post route once the createNewTutor controller is ready
   // .post("/", verifyJWT, createNewTutor);
   .post("/", createNewTutor);

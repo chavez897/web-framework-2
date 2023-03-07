@@ -59,3 +59,14 @@ export const updateTutorService = async (
     throw new Error(error.message);
   }
 };
+
+export const updateImageService = async ({ id, file }) => {
+  const tutor = Tutor.findOneAndUpdate(
+    { id },
+    {
+      image: file,
+    },
+    { new: true }
+  );
+  return tutor;
+};
