@@ -21,8 +21,6 @@ export const createNewTutorService = async ({ profile, file }) => {
   return tutor;
 };
 
-
-
 export const getTutorService = async (id) => {
   const tutor = await Tutor.findOne({ _id: id });
   return tutor;

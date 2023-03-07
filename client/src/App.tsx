@@ -9,9 +9,9 @@ import LandingPage from "./pages/LandingPage";
 import AppCSS from "./assets/App.module.css";
 import blueShape from "./assets/blueShape.png";
 import "./assets/index.css";
-import TutorProfile from "./pages/TutorProfile.tsx";
-import ContactTutor from "./pages/ContactTutor.tsx";
-import UserProfile from "./pages/UserProfile.tsx";
+import TutorProfile from "./pages/TutorProfile";
+import ContactTutor from "./pages/ContactTutor";
+import UserProfile from "./pages/UserProfile";
 
 interface Props {}
 
