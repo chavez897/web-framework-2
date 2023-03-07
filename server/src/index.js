@@ -12,6 +12,8 @@ import populateDBRoutes from "./v1/routes/populateDBRoutes.js";
 import cookieParser from "cookie-parser";
 import corsOptions from "./config/corsOptions.js";
 import credentials from "./middlewares/credentials.js";
+import contactFomrRoutes from "./v1/routes/contactFormRoutes.js";
+import userRoutes from "./v1/routes/userRoutes.js";
 
 //Choosen architekture: 3 layer architecture
 //Router -> Controller -> Service Layer -> Data Access Layer
@@ -55,3 +57,5 @@ app.use("/api/v1/auth", authenticationRoutes);
 //Review Routes
 app.use("/api/v1/reviews", reviewRoutes);
 app.use("/api/v1/contents", homeRoutes);
+app.use("/api/v1/contact", contactFomrRoutes);
+app.use("/api/v1/user", userRoutes);

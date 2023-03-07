@@ -4,9 +4,6 @@ export const getTutorsService = async (skill) => {
   const tutors = await Tutor.find({
     skills: { $regex: skill, $options: "i" },
   }).sort({ hourlyCost: 1 });
-
-  console.log("tutors:", tutors);
-
   return tutors;
 };
 export const createNewTutorService = async ({ profile, file }) => {
@@ -21,5 +18,12 @@ export const createNewTutorService = async ({ profile, file }) => {
   };
 
   const tutor = await new Tutor(data).save();
+  return tutor;
+};
+
+
+
+export const getTutorService = async (id) => {
+  const tutor = await Tutor.findOne({ _id: id });
   return tutor;
 };

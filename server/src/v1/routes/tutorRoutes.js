@@ -2,6 +2,7 @@ import express from "express";
 import {
   getTutors,
   createNewTutor,
+  getTutor,
 } from "../../controllers/tutorController.js";
 import { verifyJWT } from "../../middlewares/verifyJWT.js";
 import apicache from "apicache";

@@ -1,6 +1,7 @@
 import {
   getTutorsService,
   createNewTutorService,
+  getTutorService,
 } from "../services/tutorService.js";
 
 import multer from "multer";
@@ -26,7 +27,16 @@ export const getTutors = async (req, res) => {
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
-};  
+};
+
+export const getTutor = async (req, res) => {
+  try {
+    const { id } = req.query;
+    res.status(200).json(await getTutorService(id));
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 
 export const createNewTutor = async (req, res) => {
   try {
