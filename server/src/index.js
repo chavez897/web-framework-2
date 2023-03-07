@@ -23,6 +23,7 @@ dotenv.config();
 
 //Create server
 const app = express();
+app.use("/img", express.static("./uploads/"));
 
 const PORT = process.env.PORT || 5001;
 //To connect to the Db
