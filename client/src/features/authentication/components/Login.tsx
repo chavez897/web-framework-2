@@ -47,7 +47,6 @@ const Login: React.FC<LoginProps> = ({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (validate()) {
-      console.log("Form is valid");
     }
   };
 

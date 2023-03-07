@@ -22,6 +22,6 @@
   },
   "include": [
     "src",
-    "src/lib/axios.js"
+    "src/lib/axios.js",
   ]
 }
