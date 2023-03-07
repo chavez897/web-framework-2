@@ -4,6 +4,7 @@ import {
   updateContactForm,
   deleteContactForm,
 } from "../services/contactService.js";
+import nodemailer from "nodemailer";
 
 export const listContactFormsController = (req, res) => {
   let page = req.query.page === undefined ? 1 : req.query.page;
@@ -14,6 +15,31 @@ export const listContactFormsController = (req, res) => {
 };
 
 export const insertFormsController = (req, res) => {
+  /*const transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: "wisepalnotification@gmail.com",
+      pass: "zrlcxojekhudhzcm",
+    },
+  });
+  let data = req.body;
+  const options = {
+    from: "TESTING <sender@gmail.com>",
+    to: "testing_node_wisepals@yopmail.com",
+    subject: "WisePal Notification",
+    text: `User: ${data.user}\nLanguage: ${data.language}\nSkill: ${data.skill}\nDescription: ${data.description}`,
+  };
+
+  const info = transporter.sendMail(options).then((email) => {
+    console.log(email);
+    insertContactForm(data).then((result) => {
+      res.send(result);
+    });
+  });*/
+
   let data = req.body;
   insertContactForm(data).then((result) => {
     res.send(result);

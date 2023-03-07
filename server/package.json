@@ -25,6 +25,7 @@
     "mongoose": "^6.4.7",
     "node-base64-image": "^2.0.4",
     "node-fetch": "^3.2.10",
+    "nodemailer": "^6.9.1",
     "nodemon": "^2.0.19",
     "unsplash-js": "^7.0.15"
   }
