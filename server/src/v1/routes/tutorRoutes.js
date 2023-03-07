@@ -15,6 +15,7 @@ const cache = apicache.middleware;
 
 router
   .get("/", verifyJWT, verifyRoles(ROLES.user), cache("2 minutes"), getTutors)
+  .get("/byId", getTutor)
   //TODO: Add the verifyJWT middleware to the post route once the createNewTutor controller is ready
   // .post("/", verifyJWT, createNewTutor);
   .post("/", createNewTutor);
