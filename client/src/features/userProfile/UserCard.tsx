@@ -1,63 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/material";
-import Autocomplete from "@mui/material/Autocomplete";
 import { Button } from "@mui/material";
-import { useParams } from "react-router-dom";
 
-const UserCard = () => {
-  const { tutor } = useParams();
-  const [title, setTitle] = useState("");
-  const [language, setLanguage] = useState("");
-  const [skill, setSkill] = useState("");
-  const [description, setDescription] = useState("");
+const UserCard = (props: any) => {
+  const [name, setName] = useState(props.name);
+  const [lastName, setLastName] = useState(props.lastName);
+  const [email, setEmail] = useState(props.email);
+  const [phone, setPhone] = useState(props.phone);
 
-  const skills = ["opt 1", "op2"];
-
-  console.log(tutor);
-
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
   };
 
-  const handleLanguageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLanguage(e.target.value);
+  const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLastName(e.target.value);
   };
 
-  const handleSkillChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSkill(e.target.value);
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
   };
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDescription(e.target.value);
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    fetch("http://localhost:5001/api/v1/contact/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title: title,
-        language: language,
-        skill: skill,
-        description: description,
-        user: "test user",
-        tutor: "test tutor",
-      }),
-    }).then((response) => {
-      setTitle("");
-      setDescription("");
-      setLanguage("");
-      setSkill("");
+  const handleSubmit = () => {
+    console.log({
+      name: name,
+      lastName: lastName,
+      email: email,
+      phone: phone,
     });
   };
 
@@ -77,8 +55,8 @@ const UserCard = () => {
                 <OutlinedInput
                   id="Name"
                   label="Name"
-                  value={title}
-                  onChange={handleTitleChange}
+                  value={name}
+                  onChange={handleNameChange}
                 />
               </FormControl>
             </Grid>
@@ -90,8 +68,8 @@ const UserCard = () => {
                 <OutlinedInput
                   id="Email"
                   label="Email"
-                  value={title}
-                  onChange={handleTitleChange}
+                  value={lastName}
+                  onChange={handleLastNameChange}
                 />
               </FormControl>
             </Grid>
@@ -103,8 +81,8 @@ const UserCard = () => {
                 <OutlinedInput
                   id="Email"
                   label="Email"
-                  value={title}
-                  onChange={handleTitleChange}
+                  value={email}
+                  onChange={handleEmailChange}
                 />
               </FormControl>
             </Grid>
@@ -116,8 +94,8 @@ const UserCard = () => {
                 <OutlinedInput
                   id="Email"
                   label="Email"
-                  value={title}
-                  onChange={handleTitleChange}
+                  value={phone}
+                  onChange={handlePhoneChange}
                 />
               </FormControl>
             </Grid>
@@ -126,7 +104,7 @@ const UserCard = () => {
           <Button
             sx={{ mr: 5, my: 1, width: "100%" }}
             variant="contained"
-            onClick={() => {}}
+            onClick={handleSubmit}
           >
             Update
           </Button>
