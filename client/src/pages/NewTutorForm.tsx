@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Container from "@mui/material/Container";
 import { REGEX_VALIDATIONS } from "../utils/regexValidations";
 import Swal from "sweetalert2";
-import "alertifyjs/build/css/alertify.css";
 
 import {
   getNewTutor,
@@ -46,7 +45,7 @@ const NewTutorForm = () => {
   const [description, setDescription] = useState("");
 
   const [errors, setErrors] = useState({
-    image:false,
+    image: false,
     skills: false,
     languages: false,
     hourlyCost: false,
@@ -76,7 +75,7 @@ const NewTutorForm = () => {
     };
     const priceRegex = REGEX_VALIDATIONS.PRICE;
 
-    if(image.length==0){
+    if (image.length == 0) {
       errors.image = true;
     }
 
@@ -140,13 +139,13 @@ const NewTutorForm = () => {
       setDescription("");
 
       setErrors({
-        image:false,
+        image: false,
         skills: false,
         languages: false,
         hourlyCost: false,
         currency: false,
-        description: false
-      })
+        description: false,
+      });
 
       if (loading === false) {
         Swal.fire({
@@ -181,8 +180,8 @@ const NewTutorForm = () => {
             {/* Image Component */}
             <ImageUpload onAcceptedFiles={handleAcceptedFiles} />
             {errors.image && (
-                <FormHelperText error>Please upload an image</FormHelperText>
-              )}
+              <FormHelperText error>Please upload an image</FormHelperText>
+            )}
             {/* user Id */}
             <input
               type="text"
