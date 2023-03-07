@@ -20,15 +20,21 @@ const tutorSchema = new mongoose.Schema(
       type: [{ type: String }],
       require: true,
     },
-    skills: [{ type: String }],
+    skills:{
+      type: [{ type: String }],
+      require: true
+    },
     hourlyRate: {
       type: Number,
       require: true,
       default: 0,
     },
-    numClasesGiven: {
+    currency:{
+      type: String,
+      require: true
+    },
+    classesGiven: {
       type: Number,
-      require: true,
       default: 0,
     },
   },

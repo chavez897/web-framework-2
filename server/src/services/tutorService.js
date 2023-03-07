@@ -9,7 +9,17 @@ export const getTutorsService = async (skill) => {
 
   return tutors;
 };
-export const createNewTutorService = async (data) => {
-  tutor = await new Tutor(data).save();
+export const createNewTutorService = async ({ profile, file }) => {
+  let data = {
+    userId: profile.userId,
+    image: file,
+    description: profile.description,
+    spokenLanguages: profile.spokenLanguages,
+    skills: profile.skills,
+    hourlyRate: profile.hourlyRate,
+    currency: profile.currency,
+  };
+
+  const tutor = await new Tutor(data).save();
   return tutor;
 };

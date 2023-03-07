@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Button,
   Card,
   CardContent,
   FormControl,
@@ -8,13 +7,20 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
-import { useDropzone } from "react-dropzone";
+import { useState } from "react";
+import { useDropzone, FileWithPath } from "react-dropzone";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
-function ImageUpload() {
-  const [files, setFiles] = useState([]);
-  const [customError, setCustomError] = useState([]);
+interface FileWithPreview extends File {
+  preview: string;
+}
+
+type Props = {
+  onAcceptedFiles: (acceptedFiles: FileWithPath[]) => void;
+};
+
+function ImageUpload(props: Props) {
+  const [files, setFiles] = useState<FileWithPreview[]>([]);
   const maxFiles = 1;
   const { acceptedFiles, fileRejections, getRootProps, getInputProps } =
     useDropzone({
@@ -22,7 +28,7 @@ function ImageUpload() {
         "image/*": [".png", ".jpeg", ".jpg"],
       },
       maxFiles,
-      onDrop: (acceptedFiles) => {
+      onDrop: (acceptedFiles: FileWithPath[]) => {
         setFiles(
           acceptedFiles.map((file) =>
             Object.assign(file, {
@@ -30,12 +36,14 @@ function ImageUpload() {
             })
           )
         );
+        props.onAcceptedFiles(acceptedFiles);
       },
     });
 
-  const thumbs = files.map((file) => (
+  const thumbs = files.map((file, index) => (
     <Avatar
-      // alt={file.preview}
+      key={index}
+      alt={file.preview}
       src={file.preview}
       sx={{ width: 156, height: 156, borderRadius: "2%" }}
       onLoad={() => {
@@ -45,7 +53,10 @@ function ImageUpload() {
   ));
 
   return (
-    <Card sx={{ width: "100%", backgroundColor: "#f1f8fc", m:0 }} variant="outlined">
+    <Card
+      sx={{ width: "100%", backgroundColor: "#f1f8fc", m: 0 }}
+      variant="outlined"
+    >
       <CardContent>
         <Box
           {...getRootProps()}
@@ -65,7 +76,6 @@ function ImageUpload() {
           }}
         >
           <FormControl
-            // error={isFileTooLarge}
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -89,7 +99,7 @@ function ImageUpload() {
               color="text.primary"
               sx={{ paddingY: 1 }}
             >
-              Drag and drop an image, or click to select image
+              Drag and drop an image, select a image
             </Typography>
 
             <FormHelperText error={true}>
@@ -97,7 +107,6 @@ function ImageUpload() {
                 ? "File is larger than 600 KB"
                 : fileRejections[0]?.errors[0]?.message}
             </FormHelperText>
-            <FormHelperText error={true}>{customError}</FormHelperText>
           </FormControl>
         </Box>
         <Box
