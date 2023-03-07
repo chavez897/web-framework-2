@@ -55,7 +55,7 @@ const Registration: React.FC<Props> = ({
     errors.password = form.password ? "" : "Password is required";
     if (form.password && !REGEX_VALIDATIONS.PASSWORD.test(form.password))
       errors.password =
-        "Password must be at least 8 characters long and it must contain at least one number";
+        "Password must be at least 8 characters long and it must contain at least one number and one special character";
 
     errors.password2 = form.password2 ? "" : "Please confirm your password";
     if (form.password2 && form.password2 !== form.password)

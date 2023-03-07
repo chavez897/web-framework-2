@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import EmailInput from "./EmailInput";
 import LoginCSS from "../../../assets/Login.module.css";
-import { BsPerson } from "react-icons/bs";
 import { RiLockPasswordLine } from "react-icons/ri";
 import ShowOrHideIcon from "./ShowOrHideIcon";
 import MainButton from "./MainButton";
 import Title from "./Title";
 import { REGEX_VALIDATIONS } from "../../../utils/regexValidations";
+import { useDispatch } from "react-redux";
+import { login } from "../store/authenticationSlice";
 interface LoginProps {
   togglePwVisibility: (event: React.MouseEvent<HTMLElement>) => void;
   pwFieldType: string;
@@ -18,6 +19,8 @@ const Login: React.FC<LoginProps> = ({
   pwFieldType,
   toggleLoginRegister,
 }) => {
+  const dispatch = useDispatch();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -26,6 +29,15 @@ const Login: React.FC<LoginProps> = ({
 
   const validate = () => {
     setError("");
+    console.log({ form });
+    console.log(
+      "REGEX_VALIDATIONS.EMAIL.test(form.email)",
+      REGEX_VALIDATIONS.EMAIL.test(form.email)
+    );
+    console.log(
+      "REGEX_VALIDATIONS.PASSWORD.test(form.password)",
+      REGEX_VALIDATIONS.PASSWORD.test(form.password)
+    );
 
     if (!form.email || !form.password) {
       setError("Email and password are required");
@@ -46,6 +58,11 @@ const Login: React.FC<LoginProps> = ({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (validate()) {
+      console.log("Valid form");
+      // Dispatch login action
+      dispatch(login(form.email));
+    } else {
+      console.log("Invalid form");
     }
   };
 
