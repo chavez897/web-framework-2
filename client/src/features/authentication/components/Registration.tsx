@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import EmailInput from "./EmailInput.tsx";
+import EmailInput from "./EmailInput";
 import LoginCSS from "../../../assets/Login.module.css";
 import { BsPerson } from "react-icons/bs";
 import { RiLockPasswordLine } from "react-icons/ri";
-import ShowOrHideIcon from "./ShowOrHideIcon.tsx";
-import MainButton from "./MainButton.tsx";
-import Title from "./Title.tsx";
-import { REGEX_VALIDATIONS } from "../../../utils/regexValidations.ts";
-import { API_ENDPOINTS } from "../../../utils/apiEndpoints.ts";
-import axios from "../../../lib/axios.ts";
+import ShowOrHideIcon from "./ShowOrHideIcon";
+import MainButton from "./MainButton";
+import Title from "./Title";
+import { REGEX_VALIDATIONS } from "../../../utils/regexValidations";
+import { API_ENDPOINTS } from "../../../utils/apiEndpoints";
+import axios from "../../../lib/axios";
 
 interface Props {
   togglePwVisibility: () => void;

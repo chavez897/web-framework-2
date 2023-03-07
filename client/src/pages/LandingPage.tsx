@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import LandingPageCSS from "../assets/LandingPage.module.css";
 import landingPicture from "../assets/landingPicture.png";
-import SearchBar from "../features/searchTutors/components/SearchBar.tsx";
+import SearchBar from "../features/searchTutors/components/SearchBar";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 

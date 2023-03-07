@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { getSubmittedText } from "../../searchTutors/index.tsx";
+import { getSubmittedText } from "../../searchTutors/index";
 import TutorCSS from "../assets/Tutor.module.css";
 
 interface TutorProps {
@@ -27,7 +27,6 @@ const Tutor: React.FC<TutorProps> = ({
     languagesFilter.includes(language.toLowerCase())
   );
 
-
   if (
     (!languagesFilter.length || containLanguage == true) &&
     submittedText !== undefined &&
@@ -35,7 +34,6 @@ const Tutor: React.FC<TutorProps> = ({
       tutor.lessonCost >= priceFilter[0]) ||
       !priceFilter)
   )
-
     return (
       <div className={`${TutorCSS.card}`}>
         <div className={`${TutorCSS.leftSide}`}>

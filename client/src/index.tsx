@@ -1,7 +1,7 @@
-import { store } from "./store.ts";
+import { store } from "./store";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
+import App from "./App";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import "./assets/index.css";

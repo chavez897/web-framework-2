@@ -1,7 +1,7 @@
 
-import axios from "../lib/axios.ts";
+import axios from "../lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { API_ENDPOINTS } from "../utils/apiEndpoints.ts";
+import { API_ENDPOINTS } from "../utils/apiEndpoints";
 
 //First argument: prefix for the generated action type
 //Generates action that will be taken by the SearchBar extra reducers

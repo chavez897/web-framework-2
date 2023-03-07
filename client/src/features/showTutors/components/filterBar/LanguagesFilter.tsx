@@ -1,6 +1,6 @@
 import React from "react";
 import FilterBarCSS from "../../assets/FilterBar.module.css";
-import MultiSelect from "./MultiSelect.tsx";
+import MultiSelect from "./MultiSelect";
 
 interface tutorItemsProps {
   tutorItems: Array<object>;

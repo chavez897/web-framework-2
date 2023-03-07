@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Tutor from "./Tutor.tsx";
+import Tutor from "./Tutor";
 import TutorsListCSS from "../assets/TutorsList.module.css";
 import { useParams } from "react-router-dom";
 import {
   getSubmittedText,
   getAllTutors,
   textSubmitted,
-} from "../../searchTutors/index.tsx";
-import fetchTeachers from "../../../services/fetchTeachersService.ts";
-import FilterBar from "./filterBar/FilterBar.tsx";
+} from "../../searchTutors/index";
+import fetchTeachers from "../../../services/fetchTeachersService";
+import FilterBar from "./filterBar/FilterBar";
 
 const TutorsList = () => {
   const { skill } = useParams();

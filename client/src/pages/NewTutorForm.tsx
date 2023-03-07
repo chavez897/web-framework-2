@@ -8,7 +8,7 @@ import {
   getNewTutorRequestStatus,
   getNewTutorRequestError,
   addTutorService,
-} from "../features/addTutor/index.ts";
+} from "../features/addTutor/index";
 import {
   Grid,
   InputAdornment,
@@ -17,7 +17,7 @@ import {
   Button,
 } from "@mui/material";
 import { TagsInput } from "react-tag-input-component";
-import ImageUpload from "../features/addTutor/components/ImageUpload.tsx"
+import ImageUpload from "../features/addTutor/components/ImageUpload";
 
 const NewTutorForm = () => {
   const [picture, setPicture] = useState<string | undefined>();
@@ -41,7 +41,7 @@ const NewTutorForm = () => {
               Register as a Tutor
             </Typography>
           </Grid>
-          <ImageUpload/>
+          <ImageUpload />
           <Grid item md={12}>
             <TextField
               id="Name"
