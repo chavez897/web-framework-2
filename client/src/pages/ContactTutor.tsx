@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
@@ -11,6 +11,7 @@ import { Container } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import { Button } from "@mui/material";
 import { useParams } from "react-router-dom";
+import axios from "../lib/axios.ts";
 
 const ContactTutor = () => {
   const { tutor } = useParams();
@@ -19,9 +20,26 @@ const ContactTutor = () => {
   const [skill, setSkill] = useState("");
   const [description, setDescription] = useState("");
 
-  const skills = ["opt 1", "op2"];
+  const [skillOptions, setSkillsOptions] = useState([]);
+  const [languageOptions, setLanguageOptions] = useState([]);
+  const [foundTutor, setFoundTutor] = useState(false);
 
-  console.log(tutor);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5001/api/v1/tutors/byId/?id=${tutor}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        setSkillsOptions(res.data.skills);
+        setLanguageOptions(res.data.spokenLanguages);
+        setFoundTutor(true);
+      })
+      .catch(() => {
+        setFoundTutor(false);
+      });
+  }, []);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -38,8 +56,7 @@ const ContactTutor = () => {
     setDescription(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     fetch("http://localhost:5001/api/v1/contact/", {
       method: "POST",
       headers: {
@@ -51,7 +68,7 @@ const ContactTutor = () => {
         skill: skill,
         description: description,
         user: "test user",
-        tutor: "test tutor",
+        tutor: tutor,
       }),
     }).then((response) => {
       setTitle("");
@@ -86,8 +103,10 @@ const ContactTutor = () => {
               <FormControl fullWidth sx={{ mr: 5, my: 1 }}>
                 <Autocomplete
                   disablePortal
+                  value={skill}
+                  onChange={(_, value: any) => setSkill(value)}
                   id="combo-box-demo"
-                  options={skills}
+                  options={skillOptions}
                   renderInput={(params) => (
                     <TextField {...params} label="Skills" />
                   )}
@@ -98,8 +117,9 @@ const ContactTutor = () => {
               <FormControl fullWidth sx={{ mr: 5, my: 1 }}>
                 <Autocomplete
                   disablePortal
+                  onChange={(_, value: any) => setLanguage(value)}
                   id="combo-box-demo"
-                  options={skills}
+                  options={languageOptions}
                   renderInput={(params) => (
                     <TextField {...params} label="Language" />
                   )}
@@ -120,7 +140,14 @@ const ContactTutor = () => {
           <Button
             sx={{ mr: 5, my: 1, width: "100%" }}
             variant="contained"
-            onClick={() => {}}
+            onClick={handleSubmit}
+            disabled={
+              !foundTutor ||
+              title.length <= 0 ||
+              skill.length <= 0 ||
+              language.length <= 0 ||
+              description.length <= 0
+            }
           >
             Contact
           </Button>
