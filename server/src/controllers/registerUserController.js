@@ -29,6 +29,8 @@ export const registerUser = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        lastName: user.lastName,
+        phone: user.phone,
       });
     }
   } catch (error) {

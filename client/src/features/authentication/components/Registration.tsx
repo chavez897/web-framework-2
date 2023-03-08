@@ -92,7 +92,7 @@ const Registration: React.FC<Props> = ({
       return;
     }
     // If form is valid, send data to server
-
+    console.log("form is valid");
     try {
       const response = await axios.post(
         API_ENDPOINTS.REGISTER,
@@ -113,7 +113,6 @@ const Registration: React.FC<Props> = ({
 
       console.log({ response });
       setSuccess(true);
-      console.log("form is valid");
     } catch (err) {
       console.log(err);
       if (!err?.response) {

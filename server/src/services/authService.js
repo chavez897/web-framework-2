@@ -15,12 +15,16 @@ export const handleLoginService = async (email, password) => {
     console.log("Not valid password");
     throw new Error("Not valid credentials");
   }
+
+  //Get just the Roles code to hide the roles from the client
+  const roles = Object.values(userExists.roles).filter(Boolean);
+
   //Generate access token
   const accessToken = jwt.sign(
     {
       UserInfo: {
         email: userExists.email,
-        roles: userExists.roles,
+        roles,
       },
     },
     process.env.ACCESS_TOKEN_SECRET,
@@ -43,5 +47,5 @@ export const handleLoginService = async (email, password) => {
     { new: true }
   );
 
-  return [refreshToken, accessToken];
+  return [refreshToken, accessToken, roles];
 };

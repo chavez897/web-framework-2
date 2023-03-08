@@ -9,7 +9,7 @@ export const loginUser = async (req, res) => {
     return;
   }
   try {
-    const [refreshToken, accessToken] = await handleLoginService(
+    const [refreshToken, accessToken, roles] = await handleLoginService(
       email,
       password
     );
@@ -20,7 +20,7 @@ export const loginUser = async (req, res) => {
         secure: true,
         maxAge: process.env.REFRESH_TOKEN_COOKIE_MAX_AGE,
       });
-      res.status(200).json({ accessToken });
+      res.status(200).json({ accessToken, roles });
     }
   } catch (error) {
     if (error.message === "Not valid credentials") {
