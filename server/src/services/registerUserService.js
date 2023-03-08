@@ -1,7 +1,13 @@
 import userSchema from "../database/models/userModel.js";
 import bcrypt from "bcrypt";
 import roles from "../config/rolesList.js";
-export const registerUserService = async (name, email, password) => {
+export const registerUserService = async (
+  name,
+  email,
+  lastName,
+  phone,
+  password
+) => {
   const userExists = await userSchema.findOne({ email });
   if (userExists) {
     console.log("userExists", userExists);
@@ -14,6 +20,8 @@ export const registerUserService = async (name, email, password) => {
     const user = await userSchema.create({
       name,
       email,
+      lastName,
+      phone,
       roles: { User: roles.user },
       password: hashedPassword,
       timestamp: true,

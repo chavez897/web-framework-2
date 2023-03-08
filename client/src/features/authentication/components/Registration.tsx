@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import EmailInput from "./EmailInput";
 import LoginCSS from "../../../assets/Login.module.css";
 import { BsPerson } from "react-icons/bs";
+import { AiOutlinePhone } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import ShowOrHideIcon from "./ShowOrHideIcon";
 import MainButton from "./MainButton";
@@ -23,6 +24,8 @@ const Registration: React.FC<Props> = ({
 }) => {
   const [form, setForm] = useState({
     name: "",
+    lastName: "",
+    phone: "",
     email: "",
     password: "",
     password2: "",
@@ -30,6 +33,8 @@ const Registration: React.FC<Props> = ({
 
   const [formError, setFormError] = useState({
     name: "",
+    lastName: "",
+    phone: "",
     email: "",
     password: "",
     password2: "",
@@ -47,6 +52,17 @@ const Registration: React.FC<Props> = ({
     if (form.name && !REGEX_VALIDATIONS.NAME.test(form.name))
       errors.name =
         "Name can only contain letters and must be at least 2 characters long";
+
+    errors.lastName = form.lastName ? "" : "Last name is required";
+
+    if (form.lastName && !REGEX_VALIDATIONS.NAME.test(form.lastName))
+      errors.lastName =
+        "Last name can only contain letters and must be at least 2 characters long";
+
+    errors.phone = form.phone ? "" : "Phone is required";
+
+    if (form.phone && !REGEX_VALIDATIONS.PHONE.test(form.phone))
+      errors.phone = "Phone must be a 10 digit number";
 
     errors.email = form.email ? "" : "Email is required";
     if (form.email && !REGEX_VALIDATIONS.EMAIL.test(form.email))
@@ -84,6 +100,8 @@ const Registration: React.FC<Props> = ({
           name: form.name,
           email: form.email,
           password: form.password,
+          lastName: form.lastName,
+          phone: form.phone,
         }),
         {
           headers: {
@@ -120,16 +138,41 @@ const Registration: React.FC<Props> = ({
         <div className={LoginCSS.inputField}>
           <input
             type="text"
-            placeholder="name"
+            placeholder="First name"
             required
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
           />
           <BsPerson className={LoginCSS.reactIcon} />
         </div>
-        <p className={!formError.name ? LoginCSS.hide : LoginCSS.error}>
-          {formError.name}
+        <div className={LoginCSS.inputField}>
+          <input
+            type="text"
+            placeholder="Last name"
+            required
+            value={form.lastName}
+            onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+          />
+          <BsPerson className={LoginCSS.reactIcon} />
+        </div>
+        <p className={!formError.lastName ? LoginCSS.hide : LoginCSS.error}>
+          {formError.lastName}
         </p>
+
+        <div className={LoginCSS.inputField}>
+          <input
+            type="text"
+            placeholder="Cellphone"
+            required
+            value={form.phone}
+            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+          />
+          <AiOutlinePhone className={LoginCSS.reactIcon} />
+        </div>
+        <p className={!formError.phone ? LoginCSS.hide : LoginCSS.error}>
+          {formError.phone}
+        </p>
+
         <EmailInput form={form} setForm={setForm} />
         <p className={!formError.email ? LoginCSS.hide : LoginCSS.error}>
           {formError.email}
