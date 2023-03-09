@@ -10,6 +10,8 @@ import { REGEX_VALIDATIONS } from "../../../utils/regexValidations";
 import { useDispatch } from "react-redux";
 import { login } from "../store/authenticationSlice";
 import { API_ENDPOINTS } from "../../../utils/apiEndpoints";
+import useAuth from "../../../hooks/useAuth";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 interface LoginProps {
   togglePwVisibility: (event: React.MouseEvent<HTMLElement>) => void;
   pwFieldType: string;
@@ -22,7 +24,10 @@ const Login: React.FC<LoginProps> = ({
   toggleLoginRegister,
 }) => {
   const dispatch = useDispatch();
-
+  // const { setAuth } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -31,15 +36,6 @@ const Login: React.FC<LoginProps> = ({
 
   const validate = () => {
     setError("");
-    console.log({ form });
-    console.log(
-      "REGEX_VALIDATIONS.EMAIL.test(form.email)",
-      REGEX_VALIDATIONS.EMAIL.test(form.email)
-    );
-    console.log(
-      "REGEX_VALIDATIONS.PASSWORD.test(form.password)",
-      REGEX_VALIDATIONS.PASSWORD.test(form.password)
-    );
 
     if (!form.email || !form.password) {
       setError("Email and password are required");
@@ -91,6 +87,8 @@ const Login: React.FC<LoginProps> = ({
             roles,
           })
         );
+        //Navigate to the screen where the user wanted to go
+        navigate(from, { replace: true });
       } catch (err) {
         console.log(err);
         if (!err?.response) {
