@@ -3,14 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Container from "@mui/material/Container";
 import { REGEX_VALIDATIONS } from "../utils/regexValidations";
 import Swal from "sweetalert2";
-import "alertifyjs/build/css/alertify.css";
 
-import {
-  getNewTutor,
-  getNewTutorRequestStatus,
-  getNewTutorRequestError,
-  addTutorService,
-} from "../features/addTutor/index";
 import {
   Grid,
   TextField,
@@ -29,7 +22,9 @@ import { addTutor } from "../features/addTutor/store/tutorSlice";
 
 const NewTutorForm = () => {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => ({ ...state.tutorSlice }));
+  const { loading, status } = useSelector((state) => ({
+    ...state.tutorSlice
+  }));
 
   // image upload
   const [image, setImage] = useState<File[]>([]);
@@ -46,7 +41,7 @@ const NewTutorForm = () => {
   const [description, setDescription] = useState("");
 
   const [errors, setErrors] = useState({
-    image:false,
+    image: false,
     skills: false,
     languages: false,
     hourlyCost: false,
@@ -76,7 +71,7 @@ const NewTutorForm = () => {
     };
     const priceRegex = REGEX_VALIDATIONS.PRICE;
 
-    if(image.length==0){
+    if (image.length == 0) {
       errors.image = true;
     }
 
@@ -102,6 +97,35 @@ const NewTutorForm = () => {
 
     return errors;
   };
+
+  const showAlert = (loading: any, status: any) => {
+    if (loading === false && status === 201) {
+      Swal.fire({
+        title: "Success!",
+        text: "Profile registered successfully",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    } else if (loading === false && status === 409) {
+      Swal.fire({
+        title: "Error!",
+        text: "User is aleady registered as tutor",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    } else if (loading === false && status) {
+      Swal.fire({
+        title: "Error!",
+        text: "Something went wrong",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
+  };
+  useEffect(() => {
+    showAlert(loading, Number(status));
+    console.log(loading, status);
+  }, [loading, status]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -129,6 +153,7 @@ const NewTutorForm = () => {
           hourlyRate: Number(hourlyCost),
         },
       });
+
       dispatch(addTutorAction);
 
       // Reset form
@@ -140,22 +165,13 @@ const NewTutorForm = () => {
       setDescription("");
 
       setErrors({
-        image:false,
+        image: false,
         skills: false,
         languages: false,
         hourlyCost: false,
         currency: false,
-        description: false
-      })
-
-      if (loading === false) {
-        Swal.fire({
-          title: "Success!",
-          text: "Profile registered successfully",
-          icon: "success",
-          confirmButtonText: "OK",
-        });
-      }
+        description: false,
+      });
     }
   };
 
@@ -166,23 +182,36 @@ const NewTutorForm = () => {
           <Grid item md={12}>
             <Typography
               variant="h4"
-              sx={{ mb: 2 }}
+              sx={{ mb: "2px" }}
               fontWeight={500}
               color="initial"
             >
               Register as a Tutor
             </Typography>
           </Grid>
+          <Grid item md={12}>
+            <TextField
+              inputProps={{ readOnly: true }}
+              defaultValue="Sourav Choudhary"
+              variant="outlined"
+              sx={{ margin: "17px 0 0 0" }}
+              fullWidth
+            />
+          </Grid>
+          <Grid item md={12}>
+            <TextField
+              inputProps={{ readOnly: true }}
+              defaultValue="sourav@gmail.com"
+              variant="outlined"
+              sx={{ margin: "17px 0 0 0" }}
+              fullWidth
+            />
+          </Grid>
           <form
             action="POST"
             encType="multipart/form-data"
             style={{ width: "100%" }}
           >
-            {/* Image Component */}
-            <ImageUpload onAcceptedFiles={handleAcceptedFiles} />
-            {errors.image && (
-                <FormHelperText error>Please upload an image</FormHelperText>
-              )}
             {/* user Id */}
             <input
               type="text"
@@ -190,24 +219,7 @@ const NewTutorForm = () => {
               name="userId"
               value="63f180ae4092a7cc8da26b72"
             />
-            <Grid item md={12}>
-              <TextField
-                inputProps={{ readOnly: true }}
-                defaultValue="Sourav"
-                variant="outlined"
-                fullWidth
-                sx={{ margin: "17px 0 0 0" }}
-              />
-            </Grid>
-            <Grid item md={12}>
-              <TextField
-                inputProps={{ readOnly: true }}
-                defaultValue="sourav@gmail.com"
-                variant="outlined"
-                sx={{ margin: "17px 0 0 0" }}
-                fullWidth
-              />
-            </Grid>
+
             <Grid item md={12}>
               <TagsInput
                 value={skills}
@@ -277,7 +289,7 @@ const NewTutorForm = () => {
                 </FormControl>
               </Grid>
             </Grid>
-            <Grid item md={12}>
+            <Grid item md={12} sx={{ marginBottom: 2 }}>
               <TextField
                 id="description"
                 name="description"
@@ -295,6 +307,11 @@ const NewTutorForm = () => {
                 }
               />
             </Grid>
+            {/* Image Component */}
+            <ImageUpload onAcceptedFiles={handleAcceptedFiles} />
+            {errors.image && (
+              <FormHelperText error>Please upload an image</FormHelperText>
+            )}
             <Grid item>
               <Button
                 variant="contained"

@@ -16,7 +16,7 @@ interface AddTutorArgs {
 interface TutorState {
   tutor: any;
   loading: boolean;
-  error: string | null;
+  status: string|null;
 }
 
 export const addTutor = createAsyncThunk(
@@ -32,16 +32,22 @@ export const addTutor = createAsyncThunk(
       values.skills.forEach((skill) => formData.append("skills", skill));
       formData.append("hourlyRate", values.hourlyRate.toString());
   
-      const response = await axios.post(
-        `${API_ENDPOINTS.TUTORS}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      return response.data;
+      // AXIOS POST REQUEST
+      try {
+        const response = await axios.post(
+          `${API_ENDPOINTS.TUTORS}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        return { data: response.data, status: response.status };
+      } catch (error: any) {
+        const status = error.response.status;
+        throw new Error(status);
+      }
     }
   );
 
@@ -51,6 +57,7 @@ const TutorSlice = createSlice({
     tutor: {},
     loading: false,
     error: null,
+    status: null,
   } as TutorState,
   reducers: {},
   extraReducers: {
@@ -60,11 +67,12 @@ const TutorSlice = createSlice({
     [addTutor.fulfilled.type]: (state:TutorState, action: PayloadAction<any>) => {
       state.loading = false;
       state.tutor = action.payload;
-      console.log(action.payload);
+      state.status = action.payload.status;
+    
     },
     [addTutor.rejected.type]: (state:TutorState, action: PayloadAction<any>) => {
       state.loading = false;
-      state.error = action.payload;
+      state.status = action.error.message;
     },
   },
 });

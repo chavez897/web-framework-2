@@ -2,23 +2,81 @@ import {
   getTutorsService,
   createNewTutorService,
   getTutorService,
+  getTutorByIdService,
 } from "../services/tutorService.js";
 
 import multer from "multer";
 import path from "path";
+import { check, validationResult } from "express-validator";
+
+export const validateTutor = [
+  check("description")
+    .notEmpty()
+    .withMessage("Description is required")
+    .isLength({ max: 500 })
+    .withMessage("Description cannot be longer than 500 characters"),
+  check("spokenLanguages")
+    .notEmpty()
+    .withMessage("Spoken languages are required")
+    .isArray()
+    .withMessage("Spoken languages must be an array"),
+  check("skills")
+    .notEmpty()
+    .withMessage("Skills are required")
+    .isArray()
+    .withMessage("Skills must be an array"),
+  check("hourlyRate")
+    .notEmpty()
+    .withMessage("Hourly rate is required")
+    .isFloat({ min: 0 })
+    .withMessage("Hourly rate must be a positive number"),
+  check("currency")
+    .notEmpty()
+    .withMessage("Currency is required")
+    .isString()
+    .withMessage("Currency must be a string"),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    next();
+  },
+];
 
 let uniqueImageName;
+
+const maxSize = 5 * 1024 * 1024; //5MB
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads')
+    cb(null, "./uploads");
   },
   filename: function (req, file, cb) {
-    uniqueImageName = Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname)
-    cb(null, uniqueImageName)
-  }
-})
+    uniqueImageName =
+      Date.now() +
+      "-" +
+      Math.round(Math.random() * 1e9) +
+      path.extname(file.originalname);
+    cb(null, uniqueImageName);
+  },
+});
 
-const upload = multer({ storage: storage });
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (
+      file.mimetype === "image/jpeg" ||
+      file.mimetype === "image/jpg" ||
+      file.mimetype === "image/png"
+    ) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+    }
+  },
+  limits: { fileSize: maxSize },
+});
 
 export const getTutors = async (req, res) => {
   try {
@@ -38,23 +96,39 @@ export const getTutor = async (req, res) => {
   }
 };
 
+
+// Get tutor by id
+export const getTutorById = async (req, res) => {
+  try {
+    const id  = req.params.id;
+    res.status(200).json(await getTutorByIdService(id));
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
 export const createNewTutor = async (req, res) => {
   try {
-    // await body('userId').isMongoId().withMessage('Invalid user ID').run(req);
-    // await body('description').isLength({ min: 10, max: 200 }).withMessage('Description must be between 10 and 200 characters').run(req);
-    // await body('spokenLanguages').isArray({ min: 1 }).withMessage('At least one spoken language is required').run(req);
-    // await body('skills').isArray({ min: 1 }).withMessage('At least one skill is required').run(req);
-    // await body('hourlyRate').isNumeric({ min: 0 }).withMessage('Hourly rate must be a positive number').run(req);
-    // const errors = validationResult(req);
-    // if (!errors.isEmpty()) {
-    //   return res.status(400).json({ errors: errors.array() });
-    // }
-    upload.single('image')(req, res, async (err) => {
-      if (err) {
+    upload.single("image")(req, res, async (err) => {
+      if(err instanceof multer.MulterError) {
+        res.status().send(err);
+      }
+      else if (err) {
         return res.status(400).json({ message: err.message });
       }
-      const tutor = await createNewTutorService({ profile: req.body, file: uniqueImageName });
-      res.status(201).json(tutor);
+      try {
+        const tutor = await createNewTutorService({
+          profile: req.body,
+          file: uniqueImageName,
+        });
+        res.status(201).json(tutor);
+      } catch (error) {
+        if ((error.code = 11000)) {
+          res.status(409).json({ message: `User already registered as tutor` });
+        } else {
+          res.status(409).json({ message: error });
+        }
+      }
     });
   } catch (error) {
     res.status(409).json({ message: error.message });

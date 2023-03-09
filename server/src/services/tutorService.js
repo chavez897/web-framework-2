@@ -1,4 +1,5 @@
 import Tutor from "../database/models/tutorModel.js";
+import User from "../database/models/userModel.js";
 
 export const getTutorsService = async (skill) => {
   const tutors = await Tutor.find({
@@ -6,6 +7,7 @@ export const getTutorsService = async (skill) => {
   }).sort({ hourlyCost: 1 });
   return tutors;
 };
+
 export const createNewTutorService = async ({ profile, file }) => {
   let data = {
     userId: profile.userId,
@@ -17,11 +19,27 @@ export const createNewTutorService = async ({ profile, file }) => {
     currency: profile.currency,
   };
 
-  const tutor = await new Tutor(data).save();
+  try {
+    const tutor = await new Tutor(data).save();
+    await User.updateOne({ _id: data.userId }, { $set: { isTutor: true } }); // Add this line to update the User table
   return tutor;
+  } catch (error) {
+    if (error.name === 'MongoError' && error.code === 11000) {
+      throw new Error(`User ID '${profile.userId}' already exists`);
+    } else {
+      throw error;
+    }
+  }
+
 };
 
 export const getTutorService = async (id) => {
   const tutor = await Tutor.findOne({ _id: id });
   return tutor;
 };
+
+// Get Tutor by ID
+export const getTutorByIdService = async (id) => {
+  const tutor = await Tutor.findOne({ _id: id }).populate({ path: 'userId', select: 'name email' }).exec();
+  return tutor;
+}
