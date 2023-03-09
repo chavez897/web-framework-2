@@ -5,6 +5,9 @@ interface AuthenticationState {
     password: string;
     accessToken: string;
     roles: [string];
+    name: string;
+    lastName: string;
+    phone: string;
   }
   
   const initialState: AuthenticationState = {
@@ -12,6 +15,9 @@ interface AuthenticationState {
     password: "",
     accessToken: "",
     roles: [""],
+    name: "",
+    lastName: "",
+    phone: ""
   };
 
 export const authenticationSlice = createSlice({
@@ -20,6 +26,9 @@ export const authenticationSlice = createSlice({
     reducers: {
         login: (state, action) => {
             state.email = action.payload.email;
+            state.name = action.payload.name;
+            state.lastName = action.payload.lastName;
+            state.phone = action.payload.phone;
             state.password = action.payload.password;
             state.accessToken = action.payload.accessToken;
             state.roles = action.payload.roles;
