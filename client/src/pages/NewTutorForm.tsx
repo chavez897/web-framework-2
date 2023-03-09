@@ -21,6 +21,10 @@ import { FileWithPath } from "react-dropzone";
 import { addTutor } from "../features/addTutor/store/tutorSlice";
 
 const NewTutorForm = () => {
+  //Get the user session from the redux store
+  const user = useSelector((state) => state.session);
+  console.log("User info: ", { user });
+
   const dispatch = useDispatch();
   const { loading, status } = useSelector((state) => ({
     ...state.tutorSlice

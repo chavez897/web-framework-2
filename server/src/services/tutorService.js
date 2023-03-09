@@ -43,3 +43,47 @@ export const getTutorByIdService = async (id) => {
   const tutor = await Tutor.findOne({ _id: id }).populate({ path: 'userId', select: 'name email' }).exec();
   return tutor;
 }
+export const getTutorByUserService = async (id) => {
+  const tutor = await Tutor.findOne({
+    userId: id,
+  });
+
+  return tutor;
+};
+
+export const updateTutorService = async (
+  id,
+  skills,
+  spokenLanguages,
+  hourlyRate,
+  description
+) => {
+  try {
+    const user = Tutor.findOneAndUpdate(
+      { _id: id },
+      {
+        skills: skills,
+        spokenLanguages: spokenLanguages,
+        hourlyRate: hourlyRate,
+        description: description,
+      },
+      { new: true }
+    );
+    if (user) {
+      return user;
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const updateImageService = async ({ id, file }) => {
+  const tutor = Tutor.findOneAndUpdate(
+    { id },
+    {
+      image: file,
+    },
+    { new: true }
+  );
+  return tutor;
+};

@@ -2,6 +2,9 @@ import {
   getTutorsService,
   createNewTutorService,
   getTutorService,
+  getTutorByUserService,
+  updateTutorService,
+  updateImageService,
   getTutorByIdService,
 } from "../services/tutorService.js";
 
@@ -107,6 +110,15 @@ export const getTutorById = async (req, res) => {
   }
 }
 
+export const getByUser = async (req, res) => {
+  try {
+    const { id } = req.query;
+    res.status(200).json(await getTutorByUserService(id));
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 export const createNewTutor = async (req, res) => {
   try {
     upload.single("image")(req, res, async (err) => {
@@ -129,6 +141,48 @@ export const createNewTutor = async (req, res) => {
           res.status(409).json({ message: error });
         }
       }
+    });
+  } catch (error) {
+    res.status(409).json({ message: error.message });
+  }
+};
+
+export const updateTutor = async (req, res) => {
+  const { id, skills, spokenLanguages, hourlyRate, description } = req.body;
+  if (!id || !skills || !spokenLanguages || !hourlyRate || !description) {
+    res.status(400).json({ message: "Missing fields" });
+    return;
+  }
+  try {
+    const user = await updateTutorService(
+      id,
+      skills,
+      spokenLanguages,
+      hourlyRate,
+      description
+    );
+    if (user) {
+      res.status(200).json({
+        _id: user._id,
+      });
+    }
+  } catch (error) {
+    res.status(503).json({ message: error.message });
+  }
+};
+
+export const updateImage = async (req, res) => {
+  try {
+    const { id } = req.body;
+    upload.single("image")(req, res, async (err) => {
+      if (err) {
+        return res.status(400).json({ message: err.message });
+      }
+      const tutor = await updateImageService({
+        id: id,
+        file: uniqueImageName,
+      });
+      res.status(200).json(tutor);
     });
   } catch (error) {
     res.status(409).json({ message: error.message });

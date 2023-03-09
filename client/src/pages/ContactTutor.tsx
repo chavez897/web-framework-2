@@ -12,6 +12,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { Button } from "@mui/material";
 import { useParams } from "react-router-dom";
 import axios from "../lib/axios.ts";
+import Swal from "sweetalert2";
 
 const ContactTutor = () => {
   const { tutor } = useParams();
@@ -45,13 +46,6 @@ const ContactTutor = () => {
     setTitle(e.target.value);
   };
 
-  const handleLanguageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLanguage(e.target.value);
-  };
-
-  const handleSkillChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSkill(e.target.value);
-  };
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDescription(e.target.value);
   };
@@ -71,10 +65,25 @@ const ContactTutor = () => {
         tutor: tutor,
       }),
     }).then((response) => {
-      setTitle("");
-      setDescription("");
-      setLanguage("");
-      setSkill("");
+      if (response.status === 200) {
+        setTitle("");
+        setDescription("");
+        setLanguage("");
+        setSkill("");
+        Swal.fire({
+          title: "Success!",
+          text: "You have contacted the tutor!",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "Verify the fields",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
     });
   };
 

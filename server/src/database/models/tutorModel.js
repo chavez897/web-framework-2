@@ -2,11 +2,10 @@ import mongoose from "mongoose";
 
 const tutorSchema = new mongoose.Schema(
   {
-    userId:{
-      type:mongoose.Schema.Types.ObjectId,
-      required:true,
-      unique:true,
-      ref:"User"
+    userId: {
+      type: String,
+      unique: true,
+      required: true,
     },
     image: {
       type: String,
@@ -20,18 +19,18 @@ const tutorSchema = new mongoose.Schema(
       type: [{ type: String }],
       require: true,
     },
-    skills:{
+    skills: {
       type: [{ type: String }],
-      require: true
+      require: true,
     },
     hourlyRate: {
       type: Number,
       require: true,
       default: 0,
     },
-    currency:{
+    currency: {
       type: String,
-      require: true
+      require: true,
     },
     classesGiven: {
       type: Number,
@@ -39,12 +38,12 @@ const tutorSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true
+    timestamps: true,
   },
   {
-    toJSON: { virtuals: true }, 
-    toObject: { virtuals: true }
-  },
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
 );
 
 tutorSchema.virtual("reviews", {
@@ -57,7 +56,7 @@ tutorSchema.virtual("numReviews", {
   ref: "Review",
   localField: "_id",
   foreignField: "tutorId",
-  count: true
+  count: true,
 });
 
 const Tutor = mongoose.model("Tutor", tutorSchema);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "@mui/material/Container";
 import {
   Grid,
@@ -10,12 +10,95 @@ import {
   CardContent,
 } from "@mui/material";
 import { TagsInput } from "react-tag-input-component";
-import ImageUpload from "../addTutor/components/ImageUpload.tsx";
+import ImageUpload from "./components/ImageUpload.tsx";
+import axios from "../../lib/axios.ts";
+import Swal from "sweetalert2";
+import { FileWithPath } from "react-dropzone";
 
 const TutorCard = () => {
-  const [picture, setPicture] = useState<string | undefined>();
+  const userID = "63ee8670020ff35a7b716eb0";
+  const [picture, setPicture] = useState("");
   const [skills, setSkills] = useState([]);
   const [languages, setLanguages] = useState([]);
+  const [description, setDescription] = useState("");
+  const [hourlyCost, setHourlyCost] = useState("");
+  const [id, setId] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5001/api/v1/tutors/byUser/?id=${userID}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        setId(res.data._id);
+        setSkills(res.data.skills);
+        setLanguages(res.data.spokenLanguages);
+        setHourlyCost(res.data.hourlyRate);
+        setDescription(res.data.description);
+        setPicture("http://localhost:5001/img/" + res.data.image);
+        setIsLoading(false);
+      });
+  }, []);
+
+  const handleHourlyCostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHourlyCost(e.target.value);
+  };
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDescription(e.target.value);
+  };
+
+  function handleAcceptedFiles(acceptedFiles: FileWithPath[]) {
+    var bodyFormData = new FormData();
+    bodyFormData.append("id", id);
+    bodyFormData.append("image", acceptedFiles[0]);
+    axios({
+      method: "PUT",
+      url: "http://localhost:5001/api/v1/tutors/image",
+      data: bodyFormData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then(function (response) {})
+      .catch(function (response) {});
+  }
+
+  const handleSubmit = () => {
+    fetch("http://localhost:5001/api/v1/tutors/", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: id,
+        skills: skills,
+        spokenLanguages: languages,
+        hourlyRate: hourlyCost,
+        description: description,
+      }),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          Swal.fire({
+            title: "Success!",
+            text: "You have updated your data!",
+            icon: "success",
+            confirmButtonText: "OK",
+          });
+        } else {
+          Swal.fire({
+            title: "Error!",
+            text: "Verify the fields",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Container>
@@ -28,27 +111,6 @@ const TutorCard = () => {
               </Typography>
             </Grid>
             <Grid item md={6}>
-              <Grid item md={12}>
-                <TextField
-                  id="Name"
-                  name="name"
-                  label="Name"
-                  variant="outlined"
-                  fullWidth
-                  sx={{ margin: "17px 0 0 0" }}
-                />
-              </Grid>
-              <Grid item md={12}>
-                <TextField
-                  id="email"
-                  type="email"
-                  name="email"
-                  label="Email"
-                  variant="outlined"
-                  sx={{ margin: "17px 0 0 0" }}
-                  fullWidth
-                />
-              </Grid>
               <Grid item md={12}>
                 <TagsInput
                   value={skills}
@@ -72,7 +134,10 @@ const TutorCard = () => {
                     name="cost"
                     label="Hourly Cost"
                     variant="outlined"
+                    type="number"
                     fullWidth
+                    value={hourlyCost}
+                    onChange={handleHourlyCostChange}
                     sx={{ margin: "17px 0 0 0" }}
                     InputProps={{
                       endAdornment: (
@@ -84,7 +149,14 @@ const TutorCard = () => {
               </Grid>
             </Grid>
             <Grid item md={6}>
-              <ImageUpload />
+              {!isLoading ? (
+                <ImageUpload
+                  onAcceptedFiles={handleAcceptedFiles}
+                  preview={picture}
+                />
+              ) : (
+                <div></div>
+              )}
             </Grid>
             <Grid item md={12}>
               <TextField
@@ -96,13 +168,21 @@ const TutorCard = () => {
                 multiline
                 sx={{ margin: "17px 0 0 0" }}
                 rows={4}
+                value={description}
+                onChange={handleDescriptionChange}
               />
             </Grid>
 
             <Button
               sx={{ mr: 0, my: 1, width: "100%" }}
               variant="contained"
-              onClick={() => {}}
+              onClick={handleSubmit}
+              disabled={
+                skills.length <= 0 ||
+                languages.length <= 0 ||
+                hourlyCost.length <= 0 ||
+                description.length <= 0
+              }
             >
               Update
             </Button>

@@ -1,12 +1,17 @@
 import React, { useState } from "react";
+import axios from "../../../lib/axios";
 import EmailInput from "./EmailInput";
 import LoginCSS from "../../../assets/Login.module.css";
-import { BsPerson } from "react-icons/bs";
 import { RiLockPasswordLine } from "react-icons/ri";
 import ShowOrHideIcon from "./ShowOrHideIcon";
 import MainButton from "./MainButton";
 import Title from "./Title";
 import { REGEX_VALIDATIONS } from "../../../utils/regexValidations";
+import { useDispatch } from "react-redux";
+import { login } from "../store/authenticationSlice";
+import { API_ENDPOINTS } from "../../../utils/apiEndpoints";
+import useAuth from "../../../hooks/useAuth";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 interface LoginProps {
   togglePwVisibility: (event: React.MouseEvent<HTMLElement>) => void;
   pwFieldType: string;
@@ -18,6 +23,11 @@ const Login: React.FC<LoginProps> = ({
   pwFieldType,
   toggleLoginRegister,
 }) => {
+  const dispatch = useDispatch();
+  // const { setAuth } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -43,9 +53,57 @@ const Login: React.FC<LoginProps> = ({
     return true;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (validate()) {
+      console.log("Valid form");
+
+      //Make the API call
+      try {
+        const response = await axios.post(
+          API_ENDPOINTS.LOGIN,
+          JSON.stringify({
+            email: form.email,
+            password: form.password,
+          }),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          }
+        );
+
+        console.log({ response });
+        const accessToken = response?.data?.accessToken;
+        const roles = response?.data?.roles;
+
+        // Dispatch login action
+        dispatch(
+          login({
+            email: form.email,
+            password: form.password,
+            accessToken,
+            roles,
+            name: response?.data?.name,
+            lastName: response?.data?.lastName,
+            phone: response?.data?.phone,
+          })
+        );
+        //Navigate to the screen where the user wanted to go
+        navigate(from, { replace: true });
+      } catch (err) {
+        console.log(err);
+        if (!err?.response) {
+          setError("No server response");
+        } else if (err?.response?.status === 401) {
+          setError("Not valid credentials");
+        } else {
+          setError("Login failed");
+        }
+      }
+    } else {
+      console.log("Invalid form");
     }
   };
 
